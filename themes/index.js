@@ -37,6 +37,7 @@ export default function createTheme(language) {
             '1620px',
         ],
         fonts: {
+            header: language == "en" ? "'DM Sans', sans-serif;": "'Amiri', serif;",
             body: language == "en" ? "'DM Sans', sans-serif;": "'Amiri', serif;",
             heading: language == "en" ? "'DM Sans', sans-serif;": "'Amiri', serif;",
         },
@@ -72,7 +73,7 @@ export default function createTheme(language) {
             },
             header: {
                 color: '#02073E',
-                fontWeight: 'normal',
+                fontWeight: 'heading',
                 py: 3,
                 position: 'absolute',
                 width: '100%',
@@ -191,6 +192,9 @@ export default function createTheme(language) {
             },
         },
         text: {
+            default: {
+              fontFamily: "body"
+            },
             heading: {
                 fontFamily: 'heading',
                 lineHeight: 'heading',

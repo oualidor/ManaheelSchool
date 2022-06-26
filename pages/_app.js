@@ -1,4 +1,4 @@
-import '../styles/globals.css'
+import "../styles/globals.css";
 import {Fragment, useEffect} from 'react';
 import {appWithTranslation} from "next-i18next";
 import _Entry from "./_Entry";

@@ -3,11 +3,13 @@ import {Alert, Close, Box, Container } from 'theme-ui';
 import React, {useEffect, useState} from 'react';
 import Sticky from 'react-stickynode';
 
+
 import {useDispatch, useSelector} from "react-redux";
 
 import {HideBackDrop, MountBackDrop, RemoveNotification} from "../src/Apis/Redux/Actions/Types";
 
 import {rgba} from "polished";
+import Header from "./Header/Header";
 
 
 
@@ -101,6 +103,9 @@ function Layout({ children }) {
             <Container id={"NotificationsContainer"} sx={style.NotificationsContainer}>
                 <NotificationsContent notificationsList={notifications.list}></NotificationsContent>
             </Container>
+        </Sticky>
+        <Sticky innerZ={1001} top={0} onStateChange={handleStateChange}>
+            <Header className={`${isSticky ? 'sticky' : 'unSticky'}`}  />
         </Sticky>
         <Box
             sx={{
