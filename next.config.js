@@ -4,6 +4,9 @@ const {i18n} = require("./next-i18next.config")
 const nextConfiguration = {
  i18n,
  react: { useSuspense: false },//this line
+ images: {
+  disableStaticImages: true
+ }
 
 };
 

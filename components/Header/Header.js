@@ -73,7 +73,7 @@ export default function Header({ className }) {
     },
     {
       path: '/Portfolio',
-      label: 'Support',
+      label: 'اتصل بنا',
     },
   ]
 
@@ -85,17 +85,17 @@ export default function Header({ className }) {
       textDecoration: "none",
       cursor: 'pointer',
       lineHeight: '1.2',
-      '&.active': {
+      '&:active': {
         color: 'green',
       },
-      '&.visited': {
+      '&:visited': {
         color: 'yellow',
       },
     },
     header: {
       color: 'white',
       fontWeight: 'normal',
-      py: 4,
+      py: 5,
       width: '100%',
       position: 'absolute',
       top: 0,
@@ -152,22 +152,28 @@ export default function Header({ className }) {
 
     },
     lanBox: {
-      display: openMenu? "flex": "none", flexDirection: "column",
-      p: 20, mt: 20,
+      // display: openMenu? "flex": "none", flexDirection: "column",
+      display: "none",
+      p: 20, mt: 0,
       position: "absolute", left: 0,
-      backgroundColor: "rgba(255, 255, 255, 0.9)", animation: `${langBoxAnim} 0.8s ease`, },
+      backgroundColor: "rgba(255, 255, 255, 0.9)", animation: `${langBoxAnim} 0.8s ease`,
+    },
     langTag: {
       cursor: "pointer",
       width: 80, mb:1,
       justifyContent: "space-between",
+    },
+    lanIcon: {
+      position: "relative",
+      "&:hover .langBox": {
+        display: "block",
+      },
+    },
 
-    }
 
   };
   useEffect(()=>{
-    document.getElementById('langContainer').addEventListener("mouseleave", ()=>{
-      setOpenMenu(false)
-    })
+
   }, [])
 
   return (
@@ -187,13 +193,12 @@ export default function Header({ className }) {
 
             ))}
 
-            <Box sx={{position: "relative"} }>
-              <Box id={'langIcon'} onClick={()=>setOpenMenu(!openMenu)}>
+            <Box sx={styles.lanIcon}>
+              <Box >
                 <LanguageIcon></LanguageIcon>
                 <ArrowDropDownIcon></ArrowDropDownIcon>
               </Box>
-
-              <Box id={"langContainer"} sx={styles.lanBox}>
+              <Box id={"langContainer"} sx={styles.lanBox} className={"langBox"}>
                 <LanTag lang={"ar"} label={"العربية"} country={"DZ"} style={styles.langTag}></LanTag>
                 <LanTag lang={"en"} label={"English"} country={"GB"} style={styles.langTag}></LanTag>
                 <LanTag lang={"fe"} label={'French'} country={"Fr"} style={styles.langTag}></LanTag>

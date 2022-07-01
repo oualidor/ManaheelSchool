@@ -2,6 +2,8 @@
 import {useTranslation} from "next-i18next";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import {useEffect} from "react";
+import Landing from "../Sections/Home/Landing/Landing";
+import OurTeachers from "../Sections/OurTeachers/OurTeachers";
 
 export async function getStaticProps({locale}){
 
@@ -20,7 +22,8 @@ export default function Home(props) {
 
   return (
       <>
-
+          <Landing></Landing>
+          {/*<OurTeachers></OurTeachers>*/}
       </>
   )
 }

@@ -10,18 +10,18 @@ export default function Logo({ src, text, desc, ...rest }) {
         variant: 'links.logo',
         display: 'block',
         cursor: 'pointer',
-        mr: 15,
+
       }}
       {...rest}
     >
         <Box sx={{display: "flex", alignItems: "center"}}>
             <Image src={src} alt="Logo" sx={{
                 width: ["35%", "35%", "50%", "30%", "30%", "30%", "100px"],
-                height: "100px", m: 5
+                height: "80px", mx: 5
             }}/>
             <Box sx={{display: "flex", flexDirection: "column"}}>
-                <Text sx={{fontSize: "28px", fontWeight: '400'}}>{text}</Text>
-                <Text sx={{fontSize: "28px"}}>{desc}</Text>
+                <Text sx={{fontSize: "36px", fontWeight: '1'}}>{text}</Text>
+
             </Box>
         </Box>
     </Link>
