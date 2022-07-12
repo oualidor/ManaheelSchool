@@ -2,7 +2,7 @@ import "../styles/globals.css";
 import "../styles/animate.css";
 import 'react-multi-carousel/lib/styles.css';
 import {Fragment, useEffect} from 'react';
-import _Entry from "./_Entry";
+import _Entry from "../components/_Entry";
 
 
 function CustomApp({ Component, pageProps }) {
