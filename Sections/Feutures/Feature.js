@@ -104,7 +104,7 @@ const styles = {
     display: 'flex', flexDirection: 'column',
     justifyContent: "space-around",
     width:  ['100%', '100%', '100%', '100%', "50%", "50%", "50%"],
-    mx: 5,
+
         // pt: [0, null, null, null, null, null, 1, 1],
         // gridGap: [
         //   '37px 0',

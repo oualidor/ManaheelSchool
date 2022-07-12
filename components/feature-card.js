@@ -9,11 +9,13 @@ export default function FeatureCard({
 }) {
   return (
     <Box sx={styles.card}>
+      <Image src={src} alt={altText} sx={styles.img} />
       <Box  sx={styles.wrapper}>
-        <Image src={src} alt={altText} sx={styles.img} />
+
         <Heading sx={styles.wrapper.title}>{title}</Heading>
+        <Text sx={styles.wrapper.subTitle}>{text}</Text>
       </Box>
-      <Text sx={styles.wrapper.subTitle}>{text}</Text>
+
     </Box>
   );
 }
@@ -23,9 +25,9 @@ const styles = {
 
     width: "100%",
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'row',
     alignItems: 'flex-start',
-    mb: 6
+    mb: 6, p: 2
   },
 
   img: {
@@ -38,9 +40,9 @@ const styles = {
   wrapper: {
     width: '100%',
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     mt: '-5px',
-    alignItems: 'center',
+
     title: {
       fontFamily: "heading",
       fontSize: [3, null, null, null, null, 7],
@@ -52,7 +54,7 @@ const styles = {
     },
     subTitle: {
       fontFamily: "heading",
-      fontSize: 4,
+      fontSize: ['14px', null, '28px', null, null, '22px', '22px', '22px'],
       fontWeight: 300,
       lineHeight: [1.85, null, 2],
     },

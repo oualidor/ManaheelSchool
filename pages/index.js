@@ -6,7 +6,7 @@ import Feature from "../Sections/Feutures/Feature";
 export default function Home(props) {
 
     useEffect(()=>{
-        document.body.dir = "rtl"
+        // document.body.dir = "rtl"
     })
 
   return (

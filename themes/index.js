@@ -133,7 +133,6 @@ export default function createTheme(language) {
                 py: [8, null, 9, null, null, 10],
             },
             feature: {
-
                 py: [8, null, 9, null, null, 10],
             },
             partner: {
@@ -173,17 +172,17 @@ export default function createTheme(language) {
             marginBottom: ['50px', null, '60px', null, '65px', '75px'],
             title: {
                 fontFamily: "heading",
-                fontSize: ['24px', null, '28px', null, null, '32px', null, '36px'],
+                fontSize: ['19px', null, '28px', null, null, '32px', null, '36px'],
                 color: 'heading_secondary',
                 lineHeight: [1.3, null, null, 1.2],
-                mx: 50,
+                mx: 40,
                 fontWeight: '700',
                 letterSpacing: '-.5px',
             },
 
             subTitle: {
                 fontFamily: "heading",
-                fontSize: [0, null, '22px'],
+                fontSize: 5,
                 color: 'heading',
                 letterSpacing: ['1.5px', null, '2px'],
                 textTransform: 'uppercase',

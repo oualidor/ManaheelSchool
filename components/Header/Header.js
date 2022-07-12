@@ -93,44 +93,24 @@ export default function Header({ className }) {
       },
     },
     header: {
-
       color: 'white',
       fontWeight: 'normal',
       py: 5,
       width: '100%',
       position: 'absolute',
       top: 0,
-      left: 0,
+      right: 0,
       backgroundColor: 'transparent',
       transition: 'all 0.5s ease',
       animation: `${positionAnim} 0.4s ease`,
-      '.donate__btn': {
-        display: "none",
-        flexShrink: 0,
-        mr: [15, 20, null, null, 0],
-        ml: ['auto', null, null, null, 0],
-        '@media screen and (min-width: 1220px)': {
-          display: 'flex',
-        },
-      },
       '&.sticky': {
+        top: 0,
+        right: 0,
         position: 'fixed',
         backgroundColor: 'background',
         color: 'primary',
         boxShadow: '0 1px 2px rgba(0, 0, 0, 0.06)',
         py: 3,
-        'nev > a': {
-          color: 'text',
-        },
-        '.donate__btn': {
-          borderColor: 'primary',
-          color: 'primary',
-          '&:hover': {
-            boxShadow: 'rgba(31, 62, 118, 0.57) 0px 9px 20px -5px',
-            backgroundColor: 'primary',
-            color: 'white',
-          },
-        },
       },
     },
     container: {
