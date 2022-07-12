@@ -16,11 +16,11 @@ export default function Logo({ src, text, desc, ...rest }) {
     >
         <Box sx={{display: "flex", alignItems: "center"}}>
             <Image src={src} alt="Logo" sx={{
-                width: ["35%", "35%", "50%", "30%", "30%", "30%", "100px"],
-                height: "80px", mx: 5
+                width: ["30px", "35px", "45px", "55px", "60px", "80px", "80px"],
+                 mx: 4
             }}/>
             <Box sx={{display: "flex", flexDirection: "column"}}>
-                <Text sx={{fontSize: "36px", fontWeight: '1'}}>{text}</Text>
+                <Text sx={{fontSize: ["20px", "20px", "30px", "34px", '34px', "38px", "38px"], fontWeight: '1', fontFamily: "'Gulzar', serif"}}>{text}</Text>
 
             </Box>
         </Box>

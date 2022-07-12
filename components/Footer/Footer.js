@@ -1,4 +1,4 @@
-import {Container, Flex, Button, Box, Text} from 'theme-ui';
+import {Container, Flex, Button, Box, Text, Image} from 'theme-ui';
 import NextLink from 'next/link';
 import { keyframes } from '@emotion/react';
 import LanguageIcon from '@mui/icons-material/Language';
@@ -6,11 +6,9 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ReactCountryFlag from "react-country-flag";
 import React, {useEffect, useState} from 'react';
 import {useTranslation} from "next-i18next";
-import Logo from "../Logo/Logo";
-import LogoBlackEnglish from "../../src/assets/Images/LogoBlackEnglish.svg"
-import logoMinEnglishBlack from "../../src/assets/Images/logoMinEnglishBlack.svg"
-import logoMinBleu from "../../src/assets/Images/logoMinBleu.svg"
-import LogoMinWhite from "../../src/assets/Images/LogoMinWhite.svg"
+
+import { FaMapMarkerAlt, FaPhone, FaAndroid } from "react-icons/fa";
+
 const positionAnim = keyframes`
   from {
     position: fixed;
@@ -56,7 +54,7 @@ const LanTag = ({label, lang, country, style}) => {
   );
 };
 
-export default function Header({ className }) {
+export default function Footer({ className }) {
   const {t, i18n} = useTranslation()
   const [openMenu, setOpenMenu] = useState(false)
   let HeaderData = [
@@ -75,10 +73,23 @@ export default function Header({ className }) {
     },
   ]
 
+  let teacherData = [
+
+    {
+      path: '/Portfolio',
+      label: 'تحميل التطبيق',
+    },
+    {
+      path: '/Portfolio',
+      label: 'فضاء الأولياء',
+    },
+  ]
+
+
   let text = "مدرسة المناهل"
   const styles = {
     link: {
-      fontSize: [null, null, null, null, null, "20px", "26px"],
+      fontSize: [null, null, null, null, null, "20px", "18px"],
       fontWeight: '400',
       textDecoration: "none",
       cursor: 'pointer',
@@ -96,10 +107,8 @@ export default function Header({ className }) {
       fontWeight: 'normal',
       py: 5,
       width: '100%',
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      backgroundColor: 'transparent',
+
+      backgroundColor: 'primary',
       transition: 'all 0.5s ease',
       animation: `${positionAnim} 0.4s ease`,
       '.donate__btn': {
@@ -111,43 +120,21 @@ export default function Header({ className }) {
           display: 'flex',
         },
       },
-      '&.sticky': {
-        position: 'fixed',
-        backgroundColor: 'background',
-        color: 'primary',
-        boxShadow: '0 1px 2px rgba(0, 0, 0, 0.06)',
-        py: 3,
-        'nev > a': {
-          color: 'text',
-        },
-        '.donate__btn': {
-          borderColor: 'primary',
-          color: 'primary',
-          '&:hover': {
-            boxShadow: 'rgba(31, 62, 118, 0.57) 0px 9px 20px -5px',
-            backgroundColor: 'primary',
-            color: 'white',
-          },
-        },
-      },
     },
     container: {
+      backgroundColor: '',
       width: '100%',
       display: 'flex',
-      alignItems: 'center',
+
       justifyContent: 'space-between',
-
-
     },
     nav: {
-
       height: "100%",
-      width: "60%",
-      alignItems: "center",
+      mr: 10,
       justifyContent: 'space-between',
       display: 'none',
       '@media screen and (min-width: 1220px)': {
-        display: 'flex',
+        display: 'flex', flexDirection: 'column'
       },
 
     },
@@ -169,8 +156,9 @@ export default function Header({ className }) {
         display: "block",
       },
     },
-
-
+    sectionHeader: {
+      fontSize: '26px'
+    }
   };
   useEffect(()=>{
 
@@ -180,10 +168,37 @@ export default function Header({ className }) {
 
       <Box sx={styles.header} className={className} id="header">
         <Container sx={styles.container}>
-          <Logo src={className == "sticky" ? logoMinBleu: LogoMinWhite} text={text} desc={"For our children's future"}></Logo>
-          <Box sx={styles.nav} id={"navContent"}>
-            {HeaderData.map(({ path, label }, i) => (
-                <span key={i}>
+          <Box>
+            <Box sx={{display: "flex", alignItems: "center"}}>
+              <Box sx={{display: "flex", flexDirection: "column"}}>
+                <Text sx={{fontSize: "40px", fontWeight: '1', fontFamily: "'Gulzar', serif"}}>{text}</Text>
+              </Box>
+            </Box>
+            <Box sx={{display: "flex", alignItems: "center"}}>
+              <Box sx={{display: "flex", alignItems: "", flexDirection: 'column'}}>
+                <Text sx={{fontSize: "22px", fontWeight: '1'}}>
+                  شارع هنون الزقاي، سيدي الشيخ
+                </Text>
+                <Text sx={{fontSize: "22px", fontWeight: '1',}}>
+                  ولاية سعيدة، بلدية سعيدة
+                </Text>
+              </Box>
+            </Box>
+            <Box sx={{display: "flex", alignItems: "center"}}>
+
+              <Box sx={{display: "flex", alignItems: "", flexDirection: 'column'}}>
+                <Text sx={{fontSize: "22px", fontWeight: '1',}}>
+                  0550750576 / 021264359
+                </Text>
+              </Box>
+            </Box>
+
+          </Box>
+          <Box sx={{display: 'flex'}}>
+            <Box sx={styles.nav} id={"navContent"}>
+              <Text  sx={styles.sectionHeader}>فضاء الأولياء</Text>
+              {HeaderData.map(({ path, label }, i) => (
+                  <span key={i}>
                    <NextLink
                        href={path}
                    >
@@ -191,22 +206,11 @@ export default function Header({ className }) {
                   </NextLink>
                 </span>
 
-            ))}
+              ))}
+            </Box>
 
-            {/*<Box sx={styles.lanIcon}>*/}
-            {/*  <Box >*/}
-            {/*    <LanguageIcon></LanguageIcon>*/}
-            {/*    <ArrowDropDownIcon></ArrowDropDownIcon>*/}
-            {/*  </Box>*/}
-            {/*  <Box id={"langContainer"} sx={styles.lanBox} className={"langBox"}>*/}
-            {/*    <LanTag lang={"ar"} label={"العربية"} country={"DZ"} style={styles.langTag}></LanTag>*/}
-            {/*    <LanTag lang={"en"} label={"English"} country={"GB"} style={styles.langTag}></LanTag>*/}
-            {/*    <LanTag lang={"fe"} label={'French'} country={"Fr"} style={styles.langTag}></LanTag>*/}
-            {/*  </Box>*/}
-            {/*<Box>*/}
-            {/*</Box>*/}
-            {/*</Box>*/}
           </Box>
+
         </Container>
       </Box>
 

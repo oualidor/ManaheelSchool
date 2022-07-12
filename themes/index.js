@@ -3,14 +3,14 @@ export default function createTheme(language) {
     return{
         // example colors with dark mode
         colors: {
-            text: '#343D48', // body color and primary color
+            text: '#1b3022', // body color and primary color
             text_secondary: '#02073E', // secondary body color
             heading: '#244886', // primary heading color
             heading_secondary: '#0F2137', // heading color
             background: '#FFFFFF', // body background color
             background_secondary: '#F9FBFD', // secondary background color
             border_color: '#E5ECF4', // border color
-            primary: language == "en" ? '#1F3E76': "#1F3E76", // primary button and link color
+            primary: language == "en" ? '#1b3022': "#2E58A6", // primary button and link color
             secondary: '#25CB9E', // secondary color - can be used for hover states
             muted: '#7B8188', // muted color
             accent: '#609', // a contrast color for emphasizing UI
@@ -38,7 +38,7 @@ export default function createTheme(language) {
         ],
         fonts: {
             header: language == "en" ? "'DM Sans', sans-serif;": "'Amiri', serif;",
-            body: language == "en" ? "'DM Sans', sans-serif;": "'Amiri', serif;",
+            body: language == "en" ? "'DM Sans', sans-serif;": "'Lateef', cursive;",
             heading: language == "en" ? "'DM Sans', sans-serif;": "'Amiri', serif;",
         },
         fontSizes: [12, 15, 16, 18, 20, 22, 24, 28, 32, 36, 42, 48, 52, 64],
@@ -133,7 +133,7 @@ export default function createTheme(language) {
                 py: [8, null, 9, null, null, 10],
             },
             feature: {
-                backgroundColor: "red",
+
                 py: [8, null, 9, null, null, 10],
             },
             partner: {
@@ -168,22 +168,23 @@ export default function createTheme(language) {
             width: '100%',
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center',
+
             mt: -1,
             marginBottom: ['50px', null, '60px', null, '65px', '75px'],
             title: {
+                fontFamily: "heading",
                 fontSize: ['24px', null, '28px', null, null, '32px', null, '36px'],
                 color: 'heading_secondary',
                 lineHeight: [1.3, null, null, 1.2],
-                textAlign: 'center',
+                mx: 50,
                 fontWeight: '700',
                 letterSpacing: '-.5px',
             },
 
             subTitle: {
-                fontSize: [0, null, '14px'],
+                fontFamily: "heading",
+                fontSize: [0, null, '22px'],
                 color: 'heading',
-                textAlign: 'center',
                 letterSpacing: ['1.5px', null, '2px'],
                 textTransform: 'uppercase',
                 fontWeight: '700',

@@ -22,8 +22,9 @@ export default function PostCard({
         </Heading>
 
         <Flex sx={styles.postFooter}>
-          <Text sx={styles.postFooter.name}>{authorName}</Text>
           <Text sx={styles.postFooter.date}>{date}</Text>
+          <Text sx={styles.postFooter.name}>{authorName}</Text>
+
         </Flex>
       </Flex>
     </Box>
@@ -51,17 +52,18 @@ const styles = {
     },
   },
   postContent: {
+    dir: 'ltr',
     flexDirection: 'column',
     justifyContent: 'space-between',
     padding: ['15px 20px', '25px 30px'],
   },
   title: {
+    textAlign: 'right',
     fontSize: [3, null, null, null, null, 4],
     color: 'heading',
     lineHeight: [1.4, 1.5],
     fontWeight: 700,
     mb: [3, 4, 5],
-    pr: [0, null, null, null, 5],
   },
   postFooter: {
     width: '100%',

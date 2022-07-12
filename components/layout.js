@@ -11,6 +11,8 @@ import {HideBackDrop, MountBackDrop, RemoveNotification} from "../src/Apis/Redux
 import {rgba} from "polished";
 import Header from "./Header/Header";
 import Script from "next/script";
+import Logo from "./Logo/Logo";
+import Footer from "./Footer/Footer";
 
 
 
@@ -87,10 +89,7 @@ function Layout({ children }) {
 
   return (
     <Box>
-        {/*<Script src="/libs/java/jquery.min.js"  />*/}
-        {/*<Script src="/libs/java/jquery.lettering.js" />*/}
-        {/*<Script src="/libs/java/jquery.textillate.js" />*/}
-        {/*<Script src="/libs/java/default.js" />*/}
+
         <Sticky innerZ={1002} top={0} >
             <Box
                 id={'BackDrop'}
@@ -120,7 +119,7 @@ function Layout({ children }) {
         >
             {children}
         </Box>
-        {/*<Footer Logo={Logo}></Footer>*/}
+        <Footer></Footer>
     </Box>
   );
 }
