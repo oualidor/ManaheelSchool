@@ -11,6 +11,8 @@ import LogoBlackEnglish from "../../src/assets/Images/LogoBlackEnglish.svg"
 import logoMinEnglishBlack from "../../src/assets/Images/logoMinEnglishBlack.svg"
 import logoMinBleu from "../../src/assets/Images/logoMinBleu.svg"
 import LogoMinWhite from "../../src/assets/Images/LogoMinWhite.svg"
+import MobileDrawer from "./mobile-drawer";
+import {IoMdMenu} from "react-icons/io";
 const positionAnim = keyframes`
   from {
     position: fixed;
@@ -181,6 +183,10 @@ export default function Header({ className }) {
       <Box sx={styles.header} className={className} id="header">
         <Container sx={styles.container}>
           <Logo src={className == "sticky" ? logoMinBleu: LogoMinWhite} text={text} desc={"For our children's future"}></Logo>
+          <Box sx={{display: ["flex", "flex",  "flex", "flex", "none", "none", "none", ]}}>
+            <IoMdMenu size="26px" />
+          </Box>
+
           <Box sx={styles.nav} id={"navContent"}>
             {HeaderData.map(({ path, label }, i) => (
                 <span key={i}>
@@ -192,20 +198,6 @@ export default function Header({ className }) {
                 </span>
 
             ))}
-
-            {/*<Box sx={styles.lanIcon}>*/}
-            {/*  <Box >*/}
-            {/*    <LanguageIcon></LanguageIcon>*/}
-            {/*    <ArrowDropDownIcon></ArrowDropDownIcon>*/}
-            {/*  </Box>*/}
-            {/*  <Box id={"langContainer"} sx={styles.lanBox} className={"langBox"}>*/}
-            {/*    <LanTag lang={"ar"} label={"العربية"} country={"DZ"} style={styles.langTag}></LanTag>*/}
-            {/*    <LanTag lang={"en"} label={"English"} country={"GB"} style={styles.langTag}></LanTag>*/}
-            {/*    <LanTag lang={"fe"} label={'French'} country={"Fr"} style={styles.langTag}></LanTag>*/}
-            {/*  </Box>*/}
-            {/*<Box>*/}
-            {/*</Box>*/}
-            {/*</Box>*/}
           </Box>
         </Container>
       </Box>

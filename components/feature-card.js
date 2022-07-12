@@ -21,6 +21,7 @@ export default function FeatureCard({
 const styles = {
   card: {
 
+    width: "100%",
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
@@ -52,7 +53,7 @@ const styles = {
     subTitle: {
       fontFamily: "heading",
       fontSize: 4,
-      fontWeight: 400,
+      fontWeight: 300,
       lineHeight: [1.85, null, 2],
     },
   },

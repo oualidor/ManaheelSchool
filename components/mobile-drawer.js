@@ -2,7 +2,8 @@ import React, { useContext } from 'react';
 import {Box} from 'theme-ui';
 
 import NextLink from 'next/link';
-
+import Drawer from '../../components/drawer';
+import { DrawerContext } from '../../contexts/drawer/drawer.context';
 import { IoMdClose, IoMdMenu } from 'react-icons/io';
 
 import {
@@ -12,8 +13,6 @@ import {
   FaDribbble,
 } from 'react-icons/fa';
 import menuItems from './header.data';
-import {DrawerContext} from "../../src/contexts/drawer/drawer.context";
-import Drawer from "../drawer";
 
 const social = [
   {

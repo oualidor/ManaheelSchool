@@ -68,7 +68,7 @@ const Landing = ()=>{
             bottom: -68,
             left: -160,
             zIndex: -1,
-            display: ['none', null, null, null, null, 'inline-block'],
+            display: ['inline-block', null, null, null, null, 'inline-block'],
         },
         videoBtn: {
             zIndex: 2,
@@ -178,6 +178,8 @@ const Landing = ()=>{
             flexDirection: ['column', 'column', 'column', 'column', 'row', 'row', 'row']
         },
         banner: {
+            borderBottomLeftRadius: 100,
+
             height: ['auto', 'auto', 'auto', 'auto', '90vh', '90vh', '90vh',],
             backgroundColor: ['#0898E7',  '#0898E7', '#0898E7', '#0898E7', 'transparent', "transparent", 'transparent'],
             display: "flex",
@@ -187,7 +189,7 @@ const Landing = ()=>{
             backgroundPosition: 'bottom left',
             backgroundSize: '100%',
             pt: ['140px', '145px', '155px', '170px', null, '180px', '215px'],
-            pb: [2, null, 0, null, 2, 0, null, 5],
+            pb: [8, 8, 8, null, 2, 0, null, 5],
             position: 'relative',
             zIndex: 2,
             '&::after': {
@@ -257,6 +259,7 @@ const Landing = ()=>{
                         <Text
                             as="h1"
                             sx={{
+                                display: ["none", "none",  "none", "flex", "block", "block", "block", ],
                                 textIndent: 20,
                                 color: 'white',
                                 opacity:  1,
@@ -266,9 +269,22 @@ const Landing = ()=>{
                         >
                             مدرسة المناهل هي محاولة لنخبة من الدكاترة و الأساتدة لتقديم تربية علمية بطرق و تكنولوجيا عصرية لطلبتنا الأعزاء، نقدم دروس دعم أسبوعية للتلاميد التظامين و دروس يومية للمسجلين في التعليم عن بعد
                         </Text>
+                        <Text
+                            as="h1"
+                            sx={{
+                                display: ["block", "block",  "block", "none", "none", "none", "none", ],
+                                textIndent: 20,
+                                color: 'white',
+                                opacity:  1,
+                                fontSize: ["30px", "40px", "30px", "34px", '34px', "38px", "45px"],
+
+                            }}
+                        >
+                            مدرسة المناهل هي محاولة لنخبة من الدكاترة و الأساتدة لتقديم تربية علمية بطرق و تكنولوجيا عصرية لطلبتنا الأعزاء
+                        </Text>
                         <Box>
-                            <Button sx={{mx: 20}}>
-                                 <Text sx={{mx: 20, p: 1, fontSize: 25}}>
+                            <Button sx={{ml: 2}}>
+                                 <Text sx={{mx: 1, p: 1, fontSize: 25}}>
                                      سجل الآن
                                  </Text>
                             </Button>
