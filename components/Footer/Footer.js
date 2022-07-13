@@ -171,15 +171,15 @@ export default function Footer({ className }) {
           <Box>
             <Box sx={{display: "flex", alignItems: "center"}}>
               <Box sx={{display: "flex", flexDirection: "column"}}>
-                <Text sx={{fontSize: "40px", fontWeight: '1', fontFamily: "'Gulzar', serif"}}>{text}</Text>
+                <Text sx={{fontSize: ['20px', '20px', '20px', "40px"], fontWeight: '1', fontFamily: "'Gulzar', serif"}}>{text}</Text>
               </Box>
             </Box>
             <Box sx={{display: "flex", alignItems: "center"}}>
               <Box sx={{display: "flex", alignItems: "", flexDirection: 'column'}}>
-                <Text sx={{fontSize: "22px", fontWeight: '1'}}>
+                <Text sx={{fontSize: ['16px',"22px"], fontWeight: '1'}}>
                   شارع هنون الزقاي، سيدي الشيخ
                 </Text>
-                <Text sx={{fontSize: "22px", fontWeight: '1',}}>
+                <Text sx={{fontSize: ['16px',"22px"], fontWeight: '1',}}>
                   ولاية سعيدة، بلدية سعيدة
                 </Text>
               </Box>
@@ -187,7 +187,7 @@ export default function Footer({ className }) {
             <Box sx={{display: "flex", alignItems: "center"}}>
 
               <Box sx={{display: "flex", alignItems: "", flexDirection: 'column'}}>
-                <Text sx={{fontSize: "22px", fontWeight: '1',}}>
+                <Text sx={{fontSize: ['16px',"26px"], fontWeight: '1',}}>
                   0550750576 / 021264359
                 </Text>
               </Box>

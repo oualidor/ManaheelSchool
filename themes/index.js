@@ -133,7 +133,7 @@ export default function createTheme(language) {
                 py: [8, null, 9, null, null, 10],
             },
             feature: {
-                py: [8, null, 9, null, null, 10],
+                py: [4, null, 9, null, null, 10],
             },
             partner: {
                 pt: [10, null, null, 10],

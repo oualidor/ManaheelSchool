@@ -2,6 +2,8 @@ import {Box, Button, Container, Grid, Heading, Image, Text} from "theme-ui";
 import ShapeLeft from '../../../src/assets/Images/shape-left.png';
 import ShapeRight from '../../../src/assets/Images/shape-right.png';
 import Shape from '../../../src/assets/Images/image.png';
+import patternBG from '../../../src/assets/Images/patternBG.png';
+import dotPattern from '../../../src/assets/Images/dot-pattern.svg';
 import Yl from '../../../src/assets/Images/yl.png';
 import BannerImg from '../../../src/assets/Images/banner-thumb.png';
 import React, {useEffect} from "react";
@@ -178,16 +180,17 @@ const Landing = ()=>{
             flexDirection: ['column', 'column', 'column', 'column', 'row', 'row', 'row']
         },
         banner: {
+
             borderBottomLeftRadius: 100,
 
             height: ['auto', 'auto', 'auto', 'auto', '90vh', '90vh', '90vh',],
             backgroundColor: ['#0898E7',  '#0898E7', '#0898E7', '#0898E7', 'transparent', "transparent", 'transparent'],
             display: "flex",
             justifyContent: "center",
-            backgroundImage: [null,  null, null, null, `url(${Yl})`, `url(${Yl})`, `url(${Yl})`],
+            backgroundImage: [`url(${dotPattern})`,  null, null, null, `url(${Yl})`, `url(${Yl})`, `url(${Yl})`],
             backgroundRepeat: `no-repeat`,
             backgroundPosition: 'bottom left',
-            backgroundSize: '100%',
+            backgroundSize: 'cover',
             pt: ['140px', '145px', '155px', '170px', null, '180px', '215px'],
             pb: [8, 8, 8, null, 2, 0, null, 5],
             position: 'relative',
@@ -276,15 +279,17 @@ const Landing = ()=>{
                                 textIndent: 20,
                                 color: 'white',
                                 opacity:  1,
-                                fontSize: ["30px", "40px", "30px", "34px", '34px', "38px", "45px"],
+                                fontSize: ["28px", "40px", "30px", "34px", '34px', "38px", "45px"],
+                                mb: 5
 
                             }}
                         >
                             مدرسة المناهل هي محاولة لنخبة من الدكاترة و الأساتدة لتقديم تربية علمية بطرق و تكنولوجيا عصرية لطلبتنا الأعزاء
+
                         </Text>
                         <Box>
                             <Button sx={{ml: 2}}>
-                                 <Text sx={{mx: 1, p: 1, fontSize: 25}}>
+                                 <Text sx={{mx: 1, p: 1, fontSize: ['20px', '25px']}}>
                                      سجل الآن
                                  </Text>
                             </Button>
@@ -292,7 +297,7 @@ const Landing = ()=>{
                             <Button
                                 variant={"whiteButton"}
                             >
-                                <Text sx={{mx: 1, p: 1, fontSize: 25}}>
+                                <Text sx={{mx: 1, p: 1, fontSize: ['20px', '25px']}}>
                                     <a href={"#AboutUs"}>
                                         اكتشف المزيد
                                     </a>

@@ -15,7 +15,7 @@ export default function Home(props) {
           <Landing></Landing>
           <br/>
           <Feature></Feature>
-          <br/> <br/>
+          <br/>
           <OurTeachers></OurTeachers>
 
       </>
