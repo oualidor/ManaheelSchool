@@ -58,7 +58,6 @@ const Style = {
             backgroundColor: '#2E58A6',
             top: '10%',
             position: 'absolute',
-
             objectFit: 'cover',
             width:  '90%', height: '90%'
 
