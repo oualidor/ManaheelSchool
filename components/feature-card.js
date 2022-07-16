@@ -1,6 +1,6 @@
 
 import { jsx, Image, Box, Heading, Text } from 'theme-ui';
-
+import {motion} from 'framer-motion'
 export default function FeatureCard({
   src,
   altText = 'default alt text',
@@ -10,12 +10,10 @@ export default function FeatureCard({
   return (
     <Box sx={styles.card}>
       <Image src={src} alt={altText} sx={styles.img} />
-      <Box  sx={styles.wrapper}>
-
-        <Heading sx={styles.wrapper.title}>{title}</Heading>
-        <Text sx={styles.wrapper.subTitle}>{text}</Text>
-      </Box>
-
+        <Box  sx={styles.wrapper}>
+          <Heading sx={styles.wrapper.title}>{title}</Heading>
+          <Text sx={styles.wrapper.subTitle}>{text}</Text>
+        </Box>
     </Box>
   );
 }

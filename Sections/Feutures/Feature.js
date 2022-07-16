@@ -1,8 +1,6 @@
 
 import {Button, Image, jsx} from 'theme-ui';
 import { Container, Grid, Box } from 'theme-ui';
-
-
 import Smart from '../../src/assets/Images/feature/webSitesDev.png';
 import Winner from '../../src/assets/Images/feature/winner.svg';
 import Cloud from '../../src/assets/Images/feature/cloud.svg';
@@ -17,7 +15,7 @@ import shapePattern from "../../src/assets/Images/shape-pattern1.png";
 import React from "react";
 import shape3Rtl from "../../src/assets/Images/shape3Rtl.png";
 import {keyframes} from "@emotion/core";
-
+import {motion} from 'framer-motion'
 const data = [
   {
     id: 1,
@@ -73,14 +71,21 @@ export default function Feature() {
             </Box>
           </Box>
           <Box sx={styles.grid}>
-            {data.map((item) => (
-                <FeatureCard
-                    key={item.id}
-                    src={item.imgSrc}
-                    alt={item.title}
-                    title={item.title}
-                    text={item.text}
-                />
+            {data.map((item, index) => (
+                <motion.div
+                    initial={{opacity: '0%', }}
+                    whileInView={{opacity: '100%', }}
+                    transition={{ duration: 2, type: "tween" }}
+                >
+                  <FeatureCard
+                      key={item.id}
+                      src={item.imgSrc}
+                      alt={item.title}
+                      title={item.title}
+                      text={item.text}
+                  />
+                </motion.div>
+
             ))}
           </Box>
         </Box>
