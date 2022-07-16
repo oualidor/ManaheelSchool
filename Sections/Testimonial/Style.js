@@ -35,7 +35,7 @@ const Style = {
                 fontSize: ["28px", "40px", "30px", "34px", '34px', "38px", "45px"],
             },
         imgCon: {
-            height: 450,
+            height: [380, 450],
             width: ['100','100%', '100%', '100%', 400, 400, 400],
             position: 'relative',
             backgroundColor: ''
