@@ -5,10 +5,43 @@ import LanguageIcon from '@mui/icons-material/Language';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ReactCountryFlag from "react-country-flag";
 import React, {useEffect, useState} from 'react';
-import {useTranslation} from "next-i18next";
-
-import { FaMapMarkerAlt, FaPhone, FaAndroid } from "react-icons/fa";
-
+import facebook from '../../src/assets/Images/facebook.png';
+import twitter from '../../src/assets/Images/twitter.png';
+import linkedin from '../../src/assets/Images/linkedin.png';
+import Widget from "../widget";
+const data = [
+  {
+    id: 3,
+    title: 'اتصل بنا',
+    items: [
+      {
+        path: 'tel:+213550750576',
+        label: '0550750576',
+      },
+      {
+        path: 'tel:+213696825194',
+        label: '0659521475',
+      },
+    ],
+  },
+  {
+    id: 5,
+    title: 'تابعنا',
+    items: [
+      {
+        path: 'https://web.facebook.com/youritdepartment',
+        icon: facebook,
+        label: 'Facebook',
+        target: '_blank'
+      },
+      {
+        path: 'https://www.linkedin.com/company/yourit-department/',
+        icon: linkedin,
+        label: 'LinkedIn',
+      },
+    ],
+  },
+]
 const positionAnim = keyframes`
   from {
     position: fixed;
@@ -31,61 +64,10 @@ const langBoxAnim = keyframes`
     transition: all 0.4s ease;
   }
 `;
-const LanTag = ({label, lang, country, style}) => {
-  return (
-
-        <NextLink href={"/"} locale={lang}>
-
-          <Flex sx={style} className={"langTag"}>
-            <Text sx={{color: "primary"}}>{label}</Text>
-            <ReactCountryFlag
-                className="emojiFlag"
-                countryCode={country}
-                style={{
-                  fontSize: '1em',
-                  lineHeight: '2em',
-                }}
-                aria-label="United States"
-            />
-          </Flex>
-
-        </NextLink>
-
-  );
-};
 
 export default function Footer({ className }) {
-  const {t, i18n} = useTranslation()
+
   const [openMenu, setOpenMenu] = useState(false)
-  let HeaderData = [
-    {
-      path: '/',
-      label: 'الرئيسية',
-    },
-
-    {
-      path: '/Portfolio',
-      label: 'فضاء الأساتدة',
-    },
-    {
-      path: '/Portfolio',
-      label: 'فضاء الأولياء',
-    },
-  ]
-
-  let teacherData = [
-
-    {
-      path: '/Portfolio',
-      label: 'تحميل التطبيق',
-    },
-    {
-      path: '/Portfolio',
-      label: 'فضاء الأولياء',
-    },
-  ]
-
-
   let text = "مدرسة المناهل"
   const styles = {
     link: {
@@ -124,9 +106,6 @@ export default function Footer({ className }) {
     container: {
       backgroundColor: '',
       width: '100%',
-      display: 'flex',
-
-      justifyContent: 'space-between',
     },
     nav: {
       height: "100%",
@@ -168,49 +147,36 @@ export default function Footer({ className }) {
 
       <Box sx={styles.header} className={className} id="header">
         <Container sx={styles.container}>
-          <Box>
-            <Box sx={{display: "flex", alignItems: "center"}}>
-              <Box sx={{display: "flex", flexDirection: "column"}}>
-                <Text sx={{fontSize: ['20px', '20px', '20px', "40px"], fontWeight: '1', fontFamily: "'Gulzar', serif"}}>{text}</Text>
+          <Box sx={{display: 'flex', justifyContent: 'space-between',      alignItems: 'center',     flexDirection: ['column-reverse', 'column-reverse', 'column-reverse', 'column-reverse', 'row', 'row', 'row']}}>
+            <Box>
+              <Box sx={{display: "flex", alignItems: "center"}}>
+                <Box sx={{display: "flex", flexDirection: "column"}}>
+                  <Text sx={{fontSize: ['50px', '20px', '20px', "40px"], fontWeight: '1', fontFamily: "'Gulzar', serif"}}>{text}</Text>
+                </Box>
+              </Box>
+              <Box sx={{display: "flex", alignItems: "center"}}>
+                <Box sx={{display: "flex", alignItems: "", flexDirection: 'column'}}>
+                  <Text sx={{fontSize: ['32px',"22px"], fontWeight: '1'}}>
+                    شارع هنون الزقاي، سيدي الشيخ
+                  </Text>
+                  <Text sx={{fontSize: ['32px',"22px"], fontWeight: '1',}}>
+                    ولاية سعيدة، بلدية سعيدة
+                  </Text>
+                </Box>
               </Box>
             </Box>
-            <Box sx={{display: "flex", alignItems: "center"}}>
-              <Box sx={{display: "flex", alignItems: "", flexDirection: 'column'}}>
-                <Text sx={{fontSize: ['16px',"22px"], fontWeight: '1'}}>
-                  شارع هنون الزقاي، سيدي الشيخ
-                </Text>
-                <Text sx={{fontSize: ['16px',"22px"], fontWeight: '1',}}>
-                  ولاية سعيدة، بلدية سعيدة
-                </Text>
-              </Box>
-            </Box>
-            <Box sx={{display: "flex", alignItems: "center"}}>
-
-              <Box sx={{display: "flex", alignItems: "", flexDirection: 'column'}}>
-                <Text sx={{fontSize: ['16px',"26px"], fontWeight: '1',}}>
-                  0550750576 / 021264359
-                </Text>
-              </Box>
-            </Box>
-
-          </Box>
-          <Box sx={{display: 'flex'}}>
-            <Box sx={styles.nav} id={"navContent"}>
-              <Text  sx={styles.sectionHeader}>فضاء الأولياء</Text>
-              {HeaderData.map(({ path, label }, i) => (
-                  <span key={i}>
-                   <NextLink
-                       href={path}
-                   >
-                    <Text sx={styles.link}>{label}</Text>
-                  </NextLink>
-                </span>
-
+            <Box sx={{display: 'flex'}}>
+              {data.map(({ id, title, items }) => (
+                  <Widget key={id} title={title} items={items} />
               ))}
+
             </Box>
-
           </Box>
-
+          <Box sx={{borderTop: '5px solid white', width: '100%', display: "flex"}}>
+            <Text sx={{fontSize: ['16px',"22px"], fontWeight: '1', textAlign: "center", width: '100%', backgroundColor: ''}}>
+              جميع الحقوق محفوظة 2022
+            </Text>
+          </Box>
         </Container>
       </Box>
 

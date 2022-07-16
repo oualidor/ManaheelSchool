@@ -82,7 +82,7 @@ export default function OurTeachers() {
     return (
 
 
-        <Box sx={{ variant: 'section.feature' }}>
+        <Box sx={{ variant: 'section.feature',  }}>
             <Container>
                 <SectionHeader
                     slogan="تأطير بداغوجي مميز"

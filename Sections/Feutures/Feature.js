@@ -50,7 +50,7 @@ export default function Feature() {
       <Container>
         <SectionHeader
           slogan="من أجل مستقل أفضل"
-          title="مزايا و برامج تأخدك بيدك الى النجاح"
+          title="مزايا و برامج تأخد بيدك الى النجاح"
         />
         <Box sx={{
           display: 'flex',
