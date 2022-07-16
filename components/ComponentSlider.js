@@ -10,7 +10,7 @@ const Style = {
         display: 'flex',
         button: {
             position: 'absolute',
-            top: ['99%', '95%','95%', '95%', "45%","45%", "45%", "45%"],
+            top: ['95%', '95%','95%', '95%', "45%","45%", "45%", "45%"],
             bg: 'transparent',
             border: '0px solid',
             fontSize: 40,

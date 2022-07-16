@@ -1,6 +1,7 @@
 const Style = {
     Main: {
         Container: {
+            overflow: 'hidden',
             position: 'relative',
             width: "100%", backgroundColor: '',
         },
@@ -9,18 +10,14 @@ const Style = {
 
     Entry : {
         container : {
-
             backgroundColor: '',
             width: "100%",
             display: 'flex',
             justifyContent: 'space-between',
             flexDirection: ['column', 'column', 'column', 'column', 'row', 'row', 'row']
-
-
-
         },
         textCon: {
-            pt: 150,
+            pt: [80, 150],
             textAlign: "right",
             backgroundColor: '', width: ['100','60%'],
             display: 'flex',

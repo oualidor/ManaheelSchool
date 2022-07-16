@@ -50,16 +50,16 @@ export default function Testimonial() {
 
                     <motion.div
                         style={Style.Entry.frame}
-                        initial={{right: '40%'}}
-                        whileInView={{right: "10%"}}
+                        initial={{right: '40%', display: 'none'}}
+                        whileInView={{right: "10%", display: 'block'}}
                         transition={{ duration: 1, type: "tween" }}
                     >
 
                     </motion.div>
                     <motion.div
                         style={Style.Entry.backImage}
-                        initial={{left: '40%'}}
-                        whileInView={{left: '10%'}}
+                        initial={{left: '40%', display: 'none'}}
+                        whileInView={{left: '10%', display: 'block'}}
                         transition={{ duration: 1, type: "tween" }}
                     >
 
