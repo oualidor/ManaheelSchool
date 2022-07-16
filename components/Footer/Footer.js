@@ -8,6 +8,7 @@ import React, {useEffect, useState} from 'react';
 import facebook from '../../src/assets/Images/facebook.png';
 import twitter from '../../src/assets/Images/twitter.png';
 import linkedin from '../../src/assets/Images/linkedin.png';
+import Style from './Style'
 import Widget from "../widget";
 const data = [
   {
@@ -42,17 +43,7 @@ const data = [
     ],
   },
 ]
-const positionAnim = keyframes`
-  from {
-    position: fixed;
-    opacity: 1;
-  }
-  to {
-    position: absolute;
-    opacity: 1;
-    transition: all 0.4s ease;
-  }
-`;
+
 const langBoxAnim = keyframes`
   from {
    
@@ -65,105 +56,24 @@ const langBoxAnim = keyframes`
   }
 `;
 
+const MainStyle = Style.Main
 export default function Footer({ className }) {
 
   const [openMenu, setOpenMenu] = useState(false)
-  let text = "مدرسة المناهل"
-  const styles = {
-    link: {
-      fontSize: [null, null, null, null, null, "20px", "18px"],
-      fontWeight: '400',
-      textDecoration: "none",
-      cursor: 'pointer',
-      lineHeight: '1.2',
-      '&:active': {
-        color: 'green',
-      },
-      '&:visited': {
-        color: 'yellow',
-      },
-    },
-    header: {
 
-      color: 'white',
-      fontWeight: 'normal',
-      py: 5,
-      width: '100%',
-
-      backgroundColor: 'primary',
-      transition: 'all 0.5s ease',
-      animation: `${positionAnim} 0.4s ease`,
-      '.donate__btn': {
-        display: "none",
-        flexShrink: 0,
-        mr: [15, 20, null, null, 0],
-        ml: ['auto', null, null, null, 0],
-        '@media screen and (min-width: 1220px)': {
-          display: 'flex',
-        },
-      },
-    },
-    container: {
-      backgroundColor: '',
-      width: '100%',
-    },
-    nav: {
-      height: "100%",
-      mr: 10,
-      justifyContent: 'space-between',
-      display: 'none',
-      '@media screen and (min-width: 1220px)': {
-        display: 'flex', flexDirection: 'column'
-      },
-
-    },
-    lanBox: {
-      // display: openMenu? "flex": "none", flexDirection: "column",
-      display: "none",
-      p: 20, mt: 0,
-      position: "absolute", left: 0,
-      backgroundColor: "rgba(255, 255, 255, 0.9)", animation: `${langBoxAnim} 0.8s ease`,
-    },
-    langTag: {
-      cursor: "pointer",
-      width: 80, mb:1,
-      justifyContent: "space-between",
-    },
-    lanIcon: {
-      position: "relative",
-      "&:hover .langBox": {
-        display: "block",
-      },
-    },
-    sectionHeader: {
-      fontSize: '26px'
-    }
-  };
   useEffect(()=>{
 
   }, [])
 
   return (
 
-      <Box sx={styles.header} className={className} id="header">
-        <Container sx={styles.container}>
-          <Box sx={{display: 'flex', justifyContent: 'space-between',      alignItems: 'center',     flexDirection: ['column-reverse', 'column-reverse', 'column-reverse', 'column-reverse', 'row', 'row', 'row']}}>
-            <Box>
-              <Box sx={{display: "flex", alignItems: "center"}}>
-                <Box sx={{display: "flex", flexDirection: "column"}}>
-                  <Text sx={{fontSize: ['50px', '20px', '20px', "40px"], fontWeight: '1', fontFamily: "'Gulzar', serif"}}>{text}</Text>
-                </Box>
-              </Box>
-              <Box sx={{display: "flex", alignItems: "center"}}>
-                <Box sx={{display: "flex", alignItems: "", flexDirection: 'column'}}>
-                  <Text sx={{fontSize: ['32px',"22px"], fontWeight: '1'}}>
-                    شارع هنون الزقاي، سيدي الشيخ
-                  </Text>
-                  <Text sx={{fontSize: ['32px',"22px"], fontWeight: '1',}}>
-                    ولاية سعيدة، بلدية سعيدة
-                  </Text>
-                </Box>
-              </Box>
+      <Box sx={MainStyle.Container} className={className} id="header">
+        <Container>
+          <Box sx={MainStyle.FirstLine}>
+            <Box sx={MainStyle.LogoContainer}>
+                  <Text sx={{fontSize: ['50px', '20px', '20px', "40px"], fontFamily: "'Gulzar', serif"}}>مدرسة المناهل</Text>
+                  <Text sx={{fontSize: ['28px',"22px"], }}> شارع هنون الزقاي، سيدي الشيخ</Text>
+                  <Text sx={{fontSize: ['28px',"22px"],  }}>ولاية سعيدة، بلدية سعيدة</Text>
             </Box>
             <Box sx={{display: 'flex'}}>
               {data.map(({ id, title, items }) => (
