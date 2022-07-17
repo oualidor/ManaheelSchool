@@ -56,7 +56,7 @@ function Layout({ children }) {
 
     const style={
         Backdrop : {
-            width: "99vw", height: "100vh", position: "absolute", zIndex: 999999,
+            width: "100vw", height: "100vh", position: "absolute", zIndex: 999999,
             backgroundColor: rgba(0, 0, 0, 0.8),
             display: BackDrop.mount ? "flex":"none",
             alignItems: "center",
@@ -77,7 +77,7 @@ function Layout({ children }) {
 
 
     useEffect(()=>{
-
+            BackDrop
     }, [])
   const handleStateChange = (status) => {
     if (status.status === Sticky.STATUS_FIXED) {

@@ -3,6 +3,7 @@ import Carousel from 'react-multi-carousel';
 import PostThumb1 from '../../src/assets/Images/1.jpg';
 import PostThumb2 from '../../src/assets/Images/2.jpg';
 import PostThumb3 from '../../src/assets/Images/3.jpg';
+import youcef from '../../src/assets/Images/youcef.jpg';
 import ButtonGroup from "../../components/button-group";
 import PostCard from "../../components/post-card";
 import SectionHeader from "../../components/section-header";
@@ -10,7 +11,7 @@ import SectionHeader from "../../components/section-header";
 const data = [
     {
         id: 1,
-        imgSrc: PostThumb1,
+        imgSrc: youcef,
         altText: 'Marketing',
         postLink: '#',
         title: 'الدكتور يوسف سعيدي',

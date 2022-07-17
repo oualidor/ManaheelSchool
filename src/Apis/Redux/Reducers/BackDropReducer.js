@@ -3,6 +3,7 @@ import {HideBackDrop, MountBackDrop, PushNotification, RemoveNotification} from 
 const BackDropReducer = (state = {Component : null, props: {}, mount: false}, action) => {
     switch (action.type) {
         case MountBackDrop:
+            document.body.style.overflow = "hidden"
             return {
                 ...state,
                 mount: true,

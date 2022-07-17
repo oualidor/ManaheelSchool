@@ -9,7 +9,7 @@ export default function createTheme(language) {
             heading_secondary: '#0F2137', // heading color
             background: '#FFFFFF', // body background color
             background_secondary: '#F9FBFD', // secondary background color
-            border_color: '#E5ECF4', // border color
+            border_color: '#FF0000', // border color
             primary: language == "en" ? '#1b3022': "#2E58A6", // primary button and link color
             secondary: '#25CB9E', // secondary color - can be used for hover states
             muted: '#7B8188', // muted color
@@ -391,16 +391,17 @@ export default function createTheme(language) {
         },
         forms: {
             label: {
-                fontSize: 1,
+                fontSize: 4,
                 fontWeight: 'bold',
+                fontFamily: language == "en" ? "'DM Sans', sans-serif;": "'Amiri', serif;",
             },
             input: {
-                borderRadius: 8,
-                borderColor: 'border_color',
-                height: 60,
+                borderColor: 'gray',
+                fontFamily: language == "en" ? "'DM Sans', sans-serif;": "'Amiri', serif;",
                 '&:focus': {
+                    fontFamily: language == "en" ? "'DM Sans', sans-serif;": "'Amiri', serif;",
                     borderColor: 'primary',
-                    boxShadow: (t) => `0 0 0 2px ${t.colors.primary}`,
+                    boxShadow: t => `0 0 0 2px ${t.colors.primary}`,
                     outline: 'none',
                 },
             },
