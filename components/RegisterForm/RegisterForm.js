@@ -18,7 +18,7 @@ import Style from './Style'
 import MuiComponent from "../MuiComponent";
 import rr from '../../src/assets/Images/rr.jpg'
 import {Periods, Relations, StepsInputs} from "./StepsInputs";
-import { BsFillPersonLinesFill, BsFillPeopleFill, BsBookmarkCheckFill, BsCheckAll } from "react-icons/bs";
+import { BsFillPersonLinesFill, BsFillPeopleFill, BsBookmarkCheckFill, BsHouseDoorFill, BsNewspaper} from "react-icons/bs";
 
 
 
@@ -73,8 +73,7 @@ const RegisterForm = () => {
         newInfo[e.target.name] = e.target.value
         setTimeout(()=>{
             setNewInfo(newInfo)
-
-        }, 500)
+        }, 100)
 
     }
     const InfoTag = ({title, value}) => {
@@ -115,13 +114,6 @@ const RegisterForm = () => {
 
         return (
             <>
-                <Text as={'h1'} sx={{textAlign: 'center', fontSize: ['40px']}}>
-                    مرحبا بك في فضاء التسحيل الأولي لمدرسة المناهل
-                </Text>
-
-                <Text as={'h1'} sx={{textAlign: 'center', fontSize: ['38px']}}>
-                    الرجاء الاهتمام بـ:
-                </Text>
                 <ul>
                     <li>
                         <Text sx={{fontSize: 6}}>قراءة شروط التسحيل جيدا من هنا</Text>
@@ -260,24 +252,23 @@ const RegisterForm = () => {
                         <Label>الاسم الكامل</Label>
                         <Input
                             ref={StepsInputs.NewStudentForm.fullName.ref}
-                            onChange={onChange}
-                            type={'studentName'}
+                            onChange={onChange} name={'studentName'}
+                            defaultValue={newInfo.studentName}
                             sx={{  fontFamily: "'Amiri', serif;"}}
-                            fullWidth variant={'outlined'} label={'الاسم الكامل'} dir={'rtl'}></Input>
+                            label={'الاسم الكامل'} dir={'rtl'}></Input>
                     </Box>
                     <Box>
                         <Label>تاريخ الميلاد</Label>
                         <Input
                             ref={StepsInputs.NewStudentForm.birthDate.ref}
                             onChange={(e)=>{
-                                let bd  = new Date(e.target.value)
-                                newInfo.birthDate = bd
+                                newInfo.birthDate = e.target.value
                                 setNewInfo(newInfo)
                             }}
                             defaultValue={newInfo.birthDate}
                             type={"date"}
                             sx={{  fontFamily: "'Amiri', serif;"}}
-                            fullWidth variant={'outlined'} label={'الاسم الكامل'} dir={'rtl'}></Input>
+                            fullWidth  dir={'rtl'}></Input>
                     </Box>
 
                 </Grid>
@@ -289,7 +280,7 @@ const RegisterForm = () => {
                             onChange={onChange} name={'mail'}
                             defaultValue={newInfo.mail} type={"email"}
                             sx={{  fontFamily: "'Amiri', serif;"}}
-                            fullWidth variant={'outlined'} label={'الاسم الكامل'} dir={'rtl'}></Input>
+                            fullWidth   dir={'rtl'}></Input>
                     </Box>
 
                     <Box >
@@ -299,7 +290,7 @@ const RegisterForm = () => {
                             onChange={onChange} name={'phone'}
                             type={"tel"} defaultValue={newInfo.phone}
                             sx={{  fontFamily: "'Amiri', serif;"}}
-                            fullWidth variant={'outlined'} label={'الاسم الكامل'} dir={'rtl'}></Input>
+                            fullWidth dir={'rtl'}></Input>
                     </Box>
                 </Grid>
                 <br/>
@@ -312,7 +303,7 @@ const RegisterForm = () => {
                         }}
                         selectedValue={period}
                         id={0}
-                        Icon={BsFillPersonLinesFill} text={'ابتدائئ'}></SelectButton>
+                        Icon={BsHouseDoorFill} text={'ابتدائئ'}></SelectButton>
                     <SelectButton
 
                         onClick={()=>{
@@ -321,7 +312,7 @@ const RegisterForm = () => {
                         }}
                         selectedValue={period}
                         id={1}
-                        Icon={BsFillPersonLinesFill} text={'متوسط'}></SelectButton>
+                        Icon={BsNewspaper} text={'متوسط'}></SelectButton>
                     <SelectButton
 
                         onClick={()=>{
@@ -608,13 +599,14 @@ const RegisterForm = () => {
     }, []);
 
     return (
-        <Container sx={{px:1, backgroundColor: '',  mt: '10vh',}}>
+        <Container sx={{px:1, backgroundColor: '',  mt: '5vh',}}>
             <Box sx={MainStyle.Container}>
                 <Box sx={MainStyle.imageConn}>
                     <Box className={'backdrop'}></Box>
                     <Image src={rr} sx={{height: '100%', width: '100%'}}></Image>
                 </Box>
                 <Box sx={MainStyle.textConn}>
+                    {/*<Image src={rr} sx={{position: 'absolute', height: '90%', width: '90%', zIndex: -1}}></Image>*/}
                     {
                         DrawSteps(currentStep)
                     }

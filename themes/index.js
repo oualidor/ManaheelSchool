@@ -396,13 +396,27 @@ export default function createTheme(language) {
                 fontFamily: language == "en" ? "'DM Sans', sans-serif;": "'Amiri', serif;",
             },
             input: {
-                borderColor: 'gray',
+                color: 'primary',
+                borderColor: 'primary',
                 fontFamily: language == "en" ? "'DM Sans', sans-serif;": "'Amiri', serif;",
                 '&:focus': {
                     fontFamily: language == "en" ? "'DM Sans', sans-serif;": "'Amiri', serif;",
                     borderColor: 'primary',
-                    boxShadow: t => `0 0 0 2px ${t.colors.primary}`,
+                    boxShadow: t => `0px 0 0 2px ${t.colors.primary}`,
                     outline: 'none',
+
+                },
+            },
+            select: {
+                color: 'textPrimary',
+                borderColor: 'primary',
+                fontFamily: language == "en" ? "'DM Sans', sans-serif;": "'Amiri', serif;",
+                '&:focus': {
+                    fontFamily: language == "en" ? "'DM Sans', sans-serif;": "'Amiri', serif;",
+                    borderColor: 'primary',
+                    boxShadow: t => `0px 0 0 2px ${t.colors.primary}`,
+                    outline: 'none',
+
                 },
             },
         },

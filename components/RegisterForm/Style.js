@@ -7,7 +7,7 @@ const Style = {
             p: 0,
             display: "grid",
             gridTemplateColumns: ['100%', '100%', '100%', '55% 45%'],
-            width: "100%", backgroundColor: 'white',
+            width: "100%", background: 'conic-gradient(white, white)',
         },
 
         imageConn : {
@@ -16,6 +16,7 @@ const Style = {
             height: '100%', width: '100%',
         },
         textConn : {
+            position: 'relative',
             display: "flex", flexDirection: 'column', justifyContent: 'space-between',
             overflow: 'auto',
             height: '100%', width: '100%',  p:[4, 2, 2, 2, 6, 6, 6],
@@ -23,7 +24,6 @@ const Style = {
                 gap: '10px 10px', gridTemplateColumns: ['100%', '50% 50%'],
                 mb: '20px'
             },
-
             selected: {
 
             }
