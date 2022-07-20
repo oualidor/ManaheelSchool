@@ -12,6 +12,7 @@ const BackDropReducer = (state = {Component : null, props: {}, mount: false}, ac
             };
             break;
         case HideBackDrop:
+            document.body.style.overflow = "auto"
             return {
                 ...state,
                 Component: null,

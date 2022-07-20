@@ -19,6 +19,9 @@ import SectionHeader from "../../../components/section-header";
 import I1 from './Assets/Imgs/2.png'
 import I2 from './Assets/Imgs/3.png'
 import I3 from './Assets/Imgs/4.png'
+import {MountBackDrop} from "../../../src/Apis/Redux/Actions/Types";
+import RegisterForm from "../../../components/RegisterForm/RegisterForm";
+import {useDispatch} from "react-redux";
 
 
 const Landing = ()=>{
@@ -224,6 +227,7 @@ const Landing = ()=>{
         { url: I3        },
 
     ];
+    let dispatch =  useDispatch()
     useEffect(()=>{
 
     }, [])
@@ -288,7 +292,12 @@ const Landing = ()=>{
 
                         </Text>
                         <Box>
-                            <Button sx={{ml: 2}}>
+                            <Button
+                                sx={{ml: 2}}
+                                onClick={()=>{
+                                    dispatch({type: MountBackDrop, Component: <RegisterForm/>})
+                                }}>
+
                                  <Text sx={{mx: 1, p: 1, fontSize: ['20px', '25px']}}>
                                      سجل الآن
                                  </Text>

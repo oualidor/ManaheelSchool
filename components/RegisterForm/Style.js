@@ -2,6 +2,8 @@ const Style = {
     Main: {
 
         Container: {
+
+            height: '90vh',
             p: 0,
             display: "grid",
             gridTemplateColumns: ['100%', '100%', '100%', '55% 45%'],
@@ -14,7 +16,17 @@ const Style = {
             height: '100%', width: '100%',
         },
         textConn : {
-            height: '100%', width: '100%',  p:5
+            display: "flex", flexDirection: 'column', justifyContent: 'space-between',
+            overflow: 'auto',
+            height: '100%', width: '100%',  p:7,
+            '.line': {
+                gap: '10px 10px', gridTemplateColumns: ['100%', '50% 50%'],
+                mb: '20px'
+            },
+
+            selected: {
+
+            }
         }
 
     },

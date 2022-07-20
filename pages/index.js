@@ -12,7 +12,7 @@ export default function Home(props) {
 
     useEffect(()=>{
         // document.body.dir = "rtl"
-        dispatch({type: MountBackDrop, Component: <RegisterForm/>})
+        // dispatch({type: MountBackDrop, Component: <RegisterForm/>})
     })
 
   return (
