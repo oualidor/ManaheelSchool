@@ -61,7 +61,6 @@ function Layout({ children }) {
             display: BackDrop.mount ? "flex":"none",
             alignItems: "center",
             justifyContent: "center",
-            p: 1
         },
         NotificationsContainer: {
             backgroundColor: "yellow",

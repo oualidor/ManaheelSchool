@@ -99,7 +99,7 @@ const RegisterForm = () => {
 
             <Box {...props} sx={{display: 'flex', justifyContent: "center", alignItems: "center",
                 cursor: "pointer",
-                fontSize: [20, 30], width: "33%", borderRadius: 20,
+                fontSize: [20, 30], width: "30%", borderRadius: 20,
                 flexDirection: "column", p: 3,
                 color: id == selectedValue ? 'white': 'primary',
                 backgroundColor: id == selectedValue ? 'primary': 'white',
@@ -115,23 +115,28 @@ const RegisterForm = () => {
 
         return (
             <>
-                <Text as={'h1'} sx={{textAlign: 'center'}}>
+                <Text as={'h1'} sx={{textAlign: 'center', fontSize: ['40px']}}>
                     مرحبا بك في فضاء التسحيل الأولي لمدرسة المناهل
                 </Text>
 
-                <Text as={'h1'} sx={{textAlign: 'center'}}>
+                <Text as={'h1'} sx={{textAlign: 'center', fontSize: ['38px']}}>
                     الرجاء الاهتمام بـ:
                 </Text>
                 <ul>
                     <li>
-                        <Text sx={{fontSize: 6}}>قراءة شروط التسحيل جيدا</Text>
+                        <Text sx={{fontSize: 6}}>قراءة شروط التسحيل جيدا من هنا</Text>
                     </li>
                     <li>
-                        <Text sx={{fontSize: 6}}>التأكد من صحة المعلومات</Text>
+                        <Text sx={{fontSize: 6}}> التأكد من صحة المعلومات قبل تاكيد الستيجل</Text>
                     </li>
                     <li>
                         <Text sx={{fontSize: 6}}>
                             التأكد من ادخل رقم الهاتف الشحصي لأننا سنتصل بكم من أجل تأكيد التسجيل
+                        </Text>
+                    </li>
+                    <li>
+                        <Text sx={{fontSize: 6}}>
+                            يمكنكم التسجيل عن طريق الاتصال بالرقم 0550750576
                         </Text>
                     </li>
                 </ul>
@@ -255,7 +260,8 @@ const RegisterForm = () => {
                         <Label>الاسم الكامل</Label>
                         <Input
                             ref={StepsInputs.NewStudentForm.fullName.ref}
-                            value={fullName} type={'name'}
+                            onChange={onChange}
+                            type={'studentName'}
                             sx={{  fontFamily: "'Amiri', serif;"}}
                             fullWidth variant={'outlined'} label={'الاسم الكامل'} dir={'rtl'}></Input>
                     </Box>
@@ -602,47 +608,47 @@ const RegisterForm = () => {
     }, []);
 
     return (
-        <Container>
+        <Container sx={{px:1, backgroundColor: '',  mt: '10vh',}}>
             <Box sx={MainStyle.Container}>
-            <Box sx={MainStyle.imageConn}>
-                <Box className={'backdrop'}></Box>
-                <Image src={rr} sx={{height: '100%', width: '100%'}}></Image>
-            </Box>
-            <Box sx={MainStyle.textConn}>
-                {
-                    DrawSteps(currentStep)
-                }
-                <br/>
-                {
-                    currentStep !== 10 &&
+                <Box sx={MainStyle.imageConn}>
+                    <Box className={'backdrop'}></Box>
+                    <Image src={rr} sx={{height: '100%', width: '100%'}}></Image>
+                </Box>
+                <Box sx={MainStyle.textConn}>
+                    {
+                        DrawSteps(currentStep)
+                    }
+                    <br/>
+                    {
+                        currentStep !== 10 &&
 
-                    <Box>
+                        <Box>
+                            {
+                                currentStep !== 0 &&     <Button
+                                sx={{ml: 2}}
+                                type={"button"} onClick={()=>{
+                                setPreviousStep(currentStep)
+                                setCurrentStep(previousStep)
+
+                            }}>
+                                السابق
+                                </Button>
+                            }
+                        <Button
+                            ref={NextButton} type={"button"}   onClick={()=>{HandleNext(currentStep)}}>
+                            {NEXT}
+                        </Button>
                         {
-                            currentStep !== 0 &&     <Button
-                            sx={{ml: 2}}
-                            type={"button"} onClick={()=>{
-                            setPreviousStep(currentStep)
-                            setCurrentStep(previousStep)
-
-                        }}>
-                            السابق
+                            currentStep == 10 &&
+                            <Button
+                            ref={NextButton} type={"button"}   onClick={()=>{HandleNext(currentStep)}}>
+                            {SAVE}
                             </Button>
                         }
-                    <Button
-                        ref={NextButton} type={"button"}   onClick={()=>{HandleNext(currentStep)}}>
-                        {NEXT}
-                    </Button>
-                    {
-                        currentStep == 10 &&
-                        <Button
-                        ref={NextButton} type={"button"}   onClick={()=>{HandleNext(currentStep)}}>
-                        {SAVE}
-                        </Button>
+                        </Box>
                     }
-                    </Box>
-                }
+                </Box>
             </Box>
-        </Box>
         </Container>
     )
 }
