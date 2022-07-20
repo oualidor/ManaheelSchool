@@ -99,7 +99,7 @@ const RegisterForm = () => {
 
             <Box {...props} sx={{display: 'flex', justifyContent: "center", alignItems: "center",
                 cursor: "pointer",
-                fontSize: [20, 30], width: "30%", borderRadius: 20,
+                fontSize: [20, 30], width: "33%", borderRadius: 20,
                 flexDirection: "column", p: 3,
                 color: id == selectedValue ? 'white': 'primary',
                 backgroundColor: id == selectedValue ? 'primary': 'white',
@@ -612,6 +612,7 @@ const RegisterForm = () => {
                 {
                     DrawSteps(currentStep)
                 }
+                <br/>
                 {
                     currentStep !== 10 &&
 

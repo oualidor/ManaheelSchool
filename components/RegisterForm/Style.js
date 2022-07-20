@@ -18,7 +18,7 @@ const Style = {
         textConn : {
             display: "flex", flexDirection: 'column', justifyContent: 'space-between',
             overflow: 'auto',
-            height: '100%', width: '100%',  p:7,
+            height: '100%', width: '100%',  p:[2, 2, 2, 2, 6, 6, 6],
             '.line': {
                 gap: '10px 10px', gridTemplateColumns: ['100%', '50% 50%'],
                 mb: '20px'
