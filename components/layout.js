@@ -1,4 +1,3 @@
-
 import {Alert, Close, Box, Container } from 'theme-ui';
 import React, {useEffect, useState} from 'react';
 import Sticky from 'react-stickynode';
@@ -10,8 +9,6 @@ import {HideBackDrop, MountBackDrop, RemoveNotification} from "../src/Apis/Redux
 
 import {rgba} from "polished";
 import Header from "./Header/Header";
-import Script from "next/script";
-import Logo from "./Logo/Logo";
 import Footer from "./Footer/Footer";
 
 
@@ -59,8 +56,6 @@ function Layout({ children }) {
             width: "100vw", height: "100vh", position: "absolute", zIndex: 999999,
             backgroundColor: rgba(0, 0, 0, 0.8),
             display: BackDrop.mount ? "flex":"none",
-            alignItems: "center",
-            justifyContent: "center",
         },
         NotificationsContainer: {
             backgroundColor: "yellow",
@@ -88,7 +83,6 @@ function Layout({ children }) {
 
   return (
     <Box>
-
         <Sticky innerZ={1002} top={0} >
             <Box
                 id={'BackDrop'}

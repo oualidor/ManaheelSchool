@@ -396,6 +396,8 @@ export default function createTheme(language) {
                 fontFamily: language == "en" ? "'DM Sans', sans-serif;": "'Amiri', serif;",
             },
             input: {
+                borderRadius: 15,
+                pr: '20%',
                 color: 'primary',
                 borderColor: 'primary',
                 fontFamily: language == "en" ? "'DM Sans', sans-serif;": "'Amiri', serif;",

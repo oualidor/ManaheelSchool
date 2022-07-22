@@ -1,13 +1,38 @@
+import {keyframes} from "@emotion/react";
+
+const positionAnim = keyframes`
+  from {
+    height: 0vh,
+  }
+  to {
+    height: 85vh;
+    
+  }
+`;
+
 const Style = {
     Main: {
 
         Container: {
-
-            height: ['89vh', '89vh', '89vh', '89vh', '80vh', '80vh', '80vh'],
+            borderTopRightRadius: 40,
+            borderTopLeftRadius: 40,
+            bottom: [0, '8vh'], left: 0,
+            position: 'absolute',
+            height: '85vh',
+            overflow: 'auto',
+            p: 0,
+            width: "100%",
+            background: 'white',
+            display: 'flex', flexDirection: 'column',
+            alignItems: 'center', justifyContent: "space-between"
+        },
+        Content: {
+            overflow: 'auto',
+            gridTemplateColumns: ['100%', '50% 50%'],
             p: 0,
             display: "grid",
-            gridTemplateColumns: ['100%', '100%', '100%', '55% 45%'],
-            width: "100%", background: 'conic-gradient(white, white)',
+            background: '', height: '100%',
+            width: "100%",
         },
 
         imageConn : {
@@ -19,7 +44,8 @@ const Style = {
             position: 'relative',
             display: "flex", flexDirection: 'column', justifyContent: 'space-between',
             overflow: 'auto',
-            height: '100%', width: '100%',  p:[4, 2, 2, 2, 6, 6, 6],
+
+            height: '100%', width: '100%',  p:[4, 2, 2, 2, 6, 20, '8%'],
             '.line': {
                 gap: '10px 10px', gridTemplateColumns: ['100%', '50% 50%'],
                 mb: '20px'
@@ -31,4 +57,6 @@ const Style = {
 
     },
 }
+
+
 export default Style

@@ -18,7 +18,22 @@ import Style from './Style'
 import MuiComponent from "../MuiComponent";
 import rr from '../../src/assets/Images/rr.jpg'
 import {Periods, Relations, StepsInputs} from "./StepsInputs";
-import { BsFillPersonLinesFill, BsFillPeopleFill, BsBookmarkCheckFill, BsHouseDoorFill, BsNewspaper} from "react-icons/bs";
+import {
+    BsFillPersonLinesFill,
+    BsFillPeopleFill,
+    BsBookmarkCheckFill,
+    BsHouseDoorFill,
+    BsNewspaper,
+    BsPersonSquare, BsFillPersonFill, BsCalendarDate
+} from "react-icons/bs";
+import {
+    AiFillCloseCircle,
+    AiOutlineDoubleLeft,
+    AiOutlineDoubleRight,
+    AiOutlineMail,
+    AiOutlineMinus, AiOutlinePhone
+} from "react-icons/ai";
+
 
 
 
@@ -110,6 +125,33 @@ const RegisterForm = () => {
 
         )
     }
+
+    const YitInput = ({Icon,  ...props }) => {
+
+        return(
+
+            <Box sx={{position: "relative"}}>
+                <Box
+
+                    sx={
+                    {
+                        p: 2,
+                        display: "flex", flexDirection: 'column', justifyContent: 'center',
+                        color: 'white',
+                        position: "absolute", top: '0', right: '0%', backgroundColor: 'primary', height: '100%',
+                        borderTopRightRadius: 15, borderBottomRightRadius: 15,}}
+                >
+                    <Icon size={30}></Icon>
+                </Box>
+
+                <Input {...props}></Input>
+            </Box>
+
+
+        )
+    }
+
+
     const NewUnknownForm = ({}) => {
 
         return (
@@ -173,10 +215,11 @@ const RegisterForm = () => {
                     <Box >
                         <Label>الاسم الكامل</Label>
                         <Input
+                            placeholder={'الاسم واللقب'}
                             ref={StepsInputs.NewParentForm.fullName.ref}
                             onChange={onChange} name={'parentFullName'}
                             sx={{  fontFamily: "'Amiri', serif;"}}
-                            fullWidth variant={'outlined'} label={'الاسم الكامل'} dir={'rtl'}></Input>
+                            fullWidth variant={'outlined'}  dir={'rtl'}></Input>
                     </Box>
                     <Box>
                         <Label>صفة الولاية</Label>
@@ -248,50 +291,55 @@ const RegisterForm = () => {
         return (
             <Box as={'form'}>
                 <Grid sx={{}} className={'line'}>
-                    <Box >
-                        <Label>الاسم الكامل</Label>
-                        <Input
-                            ref={StepsInputs.NewStudentForm.fullName.ref}
-                            onChange={onChange} name={'studentName'}
-                            defaultValue={newInfo.studentName}
-                            sx={{  fontFamily: "'Amiri', serif;"}}
-                            label={'الاسم الكامل'} dir={'rtl'}></Input>
-                    </Box>
-                    <Box>
-                        <Label>تاريخ الميلاد</Label>
-                        <Input
-                            ref={StepsInputs.NewStudentForm.birthDate.ref}
-                            onChange={(e)=>{
-                                newInfo.birthDate = e.target.value
-                                setNewInfo(newInfo)
-                            }}
-                            defaultValue={newInfo.birthDate}
-                            type={"date"}
-                            sx={{  fontFamily: "'Amiri', serif;"}}
-                            fullWidth  dir={'rtl'}></Input>
-                    </Box>
+                    <YitInput
+                        Icon={BsFillPersonFill}
+                        placeholder={'الاسم واللقب'}
+                        ref={StepsInputs.NewStudentForm.fullName.ref}
+                        onChange={onChange} name={'studentName'}
+                        defaultValue={newInfo.studentName}
+                        sx={{  fontFamily: "'Amiri', serif;"}}
+                        dir={'rtl'}
+                    />
+
+                    <YitInput
+                        Icon={BsCalendarDate}
+                        placeholder={'رقم الهاتف'}
+                        ref={StepsInputs.NewStudentForm.birthDate.ref}
+                        onChange={(e)=>{
+                            newInfo.birthDate = e.target.value
+                            setNewInfo(newInfo)
+                        }}
+                        defaultValue={newInfo.birthDate}
+                        type={"date"}
+                        sx={{  fontFamily: "'Amiri', serif;"}}
+                        fullWidth  dir={'rtl'}
+                    />
+
 
                 </Grid>
                 <Grid sx={{}} as="form" className={'line'}>
-                    <Box >
-                        <Label>البريد الالكتروني</Label>
-                        <Input
-                            ref={StepsInputs.NewStudentForm.mail.ref}
-                            onChange={onChange} name={'mail'}
-                            defaultValue={newInfo.mail} type={"email"}
-                            sx={{  fontFamily: "'Amiri', serif;"}}
-                            fullWidth   dir={'rtl'}></Input>
-                    </Box>
+                    <YitInput
+                        placeholder={'البريد الإلكتروني'}
+                        Icon={AiOutlineMail}
+                        ref={StepsInputs.NewStudentForm.mail.ref}
+                        onChange={onChange} name={'mail'}
+                        defaultValue={newInfo.mail} type={"email"}
+                        sx={{  fontFamily: "'Amiri', serif;"}}
+                        fullWidth   dir={'rtl'}
+                    />
 
-                    <Box >
-                        <Label>رقم الهاتف</Label>
-                        <Input
+                        <YitInput
+                            Icon={AiOutlinePhone}
+                            placeholder={'رقم الهاتف'}
                             ref={StepsInputs.NewStudentForm.phone.ref}
                             onChange={onChange} name={'phone'}
                             type={"tel"} defaultValue={newInfo.phone}
                             sx={{  fontFamily: "'Amiri', serif;"}}
-                            fullWidth dir={'rtl'}></Input>
-                    </Box>
+                            fullWidth dir={'rtl'}
+                        />
+
+
+
                 </Grid>
                 <br/>
                 <br/>
@@ -599,49 +647,71 @@ const RegisterForm = () => {
     }, []);
 
     return (
-        <Container sx={{px:1, backgroundColor: '',  mt: '5vh',}}>
+        <Container sx={{mt: '15vh', position: "relative"}}>
             <Box sx={MainStyle.Container}>
-                <Box sx={MainStyle.imageConn}>
-                    <Box className={'backdrop'}></Box>
-                    <Image src={rr} sx={{height: '100%', width: '100%'}}></Image>
+                <Box sx={{display: ['block', 'none']}}>
+                    <AiOutlineMinus  size={60}></AiOutlineMinus>
                 </Box>
-                <Box sx={MainStyle.textConn}>
-                    {/*<Image src={rr} sx={{position: 'absolute', height: '90%', width: '90%', zIndex: -1}}></Image>*/}
-                    {
-                        DrawSteps(currentStep)
-                    }
-                    <br/>
-                    {
-                        currentStep !== 10 &&
 
-                        <Box>
-                            {
-                                currentStep !== 0 &&     <Button
-                                sx={{ml: 2}}
-                                type={"button"} onClick={()=>{
-                                setPreviousStep(currentStep)
-                                setCurrentStep(previousStep)
-
-                            }}>
-                                السابق
-                                </Button>
-                            }
-                        <Button
-                            ref={NextButton} type={"button"}   onClick={()=>{HandleNext(currentStep)}}>
-                            {NEXT}
-                        </Button>
+                <Box sx={MainStyle.Content}>
+                    <Box sx={MainStyle.imageConn}>
+                        <Box className={'backdrop'}></Box>
+                        <Image src={rr} sx={{height: '100%', width: '100%'}}></Image>
+                    </Box>
+                    <Box sx={MainStyle.textConn}>
+                        {/*<Image src={rr} sx={{position: 'absolute', height: '90%', width: '90%', zIndex: -1}}></Image>*/}
                         {
-                            currentStep == 10 &&
-                            <Button
-                            ref={NextButton} type={"button"}   onClick={()=>{HandleNext(currentStep)}}>
-                            {SAVE}
-                            </Button>
+                            DrawSteps(currentStep)
                         }
-                        </Box>
-                    }
+                        <br/>
+                        {
+                            currentStep !== 10 &&
+
+                            <Box
+                                sx={{
+                                    display: "flex", alignItems: "center",
+                                    fontSize: 6}}>
+                                {
+                                    currentStep !== 0 &&     <Button
+                                        sx={{
+                                            ml: 5,
+                                            width: ['33%', '20%'], justifyContent: "space-around",
+                                            display: "flex", alignItems: "center",
+                                            fontSize: [6, 6, 6, 6, 6]}}
+                                        type={"button"} onClick={()=>{
+                                        setPreviousStep(currentStep)
+                                        setCurrentStep(previousStep)
+
+                                    }}>
+                                        <AiOutlineDoubleRight></AiOutlineDoubleRight>
+                                        السابق
+
+                                    </Button>
+                                }
+                                <Button
+                                    ref={NextButton} type={"button"} sx={{
+                                    width: ['33%', '20%'], justifyContent: "space-around",
+                                    display: "flex", alignItems: "center",
+                                    fontSize: [6, 6, 6, 6, 6]}}  onClick={()=>{HandleNext(currentStep)}}>
+
+                                    {NEXT}
+                                    <AiOutlineDoubleLeft></AiOutlineDoubleLeft>
+                                </Button>
+                                {
+                                    currentStep == 10 &&
+                                    <Button
+                                        ref={NextButton} type={"button"}   onClick={()=>{HandleNext(currentStep)}}>
+                                        {SAVE}
+                                    </Button>
+                                }
+                            </Box>
+                        }
+                    </Box>
                 </Box>
             </Box>
         </Container>
+
+
     )
 }
 
