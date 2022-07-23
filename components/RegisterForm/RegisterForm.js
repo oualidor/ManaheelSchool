@@ -342,7 +342,6 @@ const RegisterForm = () => {
 
                 </Grid>
                 <br/>
-                <br/>
                 <Box sx={{display: 'flex', fontSize: 40, flexDirection: "row", alignItems: "center", justifyContent: "space-between"}}>
                     <SelectButton
                         onClick={()=>{
@@ -649,35 +648,22 @@ const RegisterForm = () => {
     return (
         <Container sx={{mt: '15vh', position: "relative"}}>
             <Box sx={MainStyle.Container}>
-                <Box sx={{display: ['block', 'none']}}>
-                    <AiOutlineMinus  size={60}></AiOutlineMinus>
+                <Box sx={MainStyle.TopBox}>
+                    <AiOutlineMinus  size={40}></AiOutlineMinus>
                 </Box>
-
                 <Box sx={MainStyle.Content}>
                     <Box sx={MainStyle.imageConn}>
                         <Box className={'backdrop'}></Box>
                         <Image src={rr} sx={{height: '100%', width: '100%'}}></Image>
                     </Box>
-                    <Box sx={MainStyle.textConn}>
-                        {/*<Image src={rr} sx={{position: 'absolute', height: '90%', width: '90%', zIndex: -1}}></Image>*/}
-                        {
-                            DrawSteps(currentStep)
-                        }
-                        <br/>
-                        {
-                            currentStep !== 10 &&
-
-                            <Box
-                                sx={{
-                                    display: "flex", alignItems: "center",
-                                    fontSize: 6}}>
-                                {
-                                    currentStep !== 0 &&     <Button
-                                        sx={{
-                                            ml: 5,
-                                            width: ['33%', '20%'], justifyContent: "space-around",
-                                            display: "flex", alignItems: "center",
-                                            fontSize: [6, 6, 6, 6, 6]}}
+                    <Box sx={MainStyle.textConn} id={'ContentBox'}>
+                        <Box id={'formsBox'}>
+                            {
+                                DrawSteps(currentStep)
+                            }
+                        </Box>
+                        {currentStep !== 10 && <Box id={'actionsBox'} sx={MainStyle.actionsBox}>
+                                {currentStep !== 0 &&     <Button
                                         type={"button"} onClick={()=>{
                                         setPreviousStep(currentStep)
                                         setCurrentStep(previousStep)
@@ -689,10 +675,7 @@ const RegisterForm = () => {
                                     </Button>
                                 }
                                 <Button
-                                    ref={NextButton} type={"button"} sx={{
-                                    width: ['33%', '20%'], justifyContent: "space-around",
-                                    display: "flex", alignItems: "center",
-                                    fontSize: [6, 6, 6, 6, 6]}}  onClick={()=>{HandleNext(currentStep)}}>
+                                    ref={NextButton} type={"button"}  onClick={()=>{HandleNext(currentStep)}}>
 
                                     {NEXT}
                                     <AiOutlineDoubleLeft></AiOutlineDoubleLeft>
@@ -704,8 +687,7 @@ const RegisterForm = () => {
                                         {SAVE}
                                     </Button>
                                 }
-                            </Box>
-                        }
+                        </Box>}
                     </Box>
                 </Box>
             </Box>
