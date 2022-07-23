@@ -16,9 +16,9 @@ const Style = {
         Container: {
             borderTopRightRadius: 40,
             borderTopLeftRadius: 40,
-            bottom: [0, '8vh'], left: 0,
-            position: 'absolute',
-            height: '85vh',
+            bottom: 0, left: 0, top: '15vh',
+            position: ['fixed', 'fixed', 'fixed', 'fixed', 'static', 'static', 'static'],
+            height: ['85vh', '85vh', '85vh', '85vh', '75vh', '75vh', '75vh'],
             p: 0,
             width: "100%",
             background: 'white',
@@ -31,15 +31,17 @@ const Style = {
         },
         Content: {
             position: 'relative',
-            gridTemplateColumns: ['100%', '50% 50%'],
-            p: 0,
+            gridTemplateColumns: [
+                '100%', '100%', '100%', '100%',
+                '40% 60%', '50% 50%', '50% 50%'],
+            p: [5, 5, 5, 5, 0, 0, 0],
             display: "grid",
-            background: '', height: '95%',
+            background: '', height: ['90%', '90%', '90%', '100%', '100%', '100%', '100%'],
             width: "100%",
         },
 
         imageConn : {
-            display: ['none', 'none', 'none', 'flex'],
+            display: ['none', 'none', 'none', 'none', 'flex', 'flex', 'flex'],
             position: 'relative',
             height: '100%', width: '100%',
         },
@@ -50,7 +52,7 @@ const Style = {
             backgroundColor: '',
             height: '100%', width: '100%',  p:[4, 2, 2, 2, 6, 20, '8%'],
             '.line': {
-                gap: '10px 10px', gridTemplateColumns: ['100%', '50% 50%'],
+                gap: '10px 10px', gridTemplateColumns: ['100%', '100%', '50% 50%'],
                 mb: '20px'
             },
             selected: {
@@ -58,10 +60,10 @@ const Style = {
             },
             '#formsBox':{
                 backgroundColor: '',
-                overflow: 'auto', height: '88%', mb: '2%'
+                  mb: '2%'
             },
             '#actionsBox': {
-                height: '10%',
+
                 backgroundColor: '',
                 display: "flex", alignItems: "center",
                 fontSize: 6,

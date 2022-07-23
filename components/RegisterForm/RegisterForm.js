@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import logo from '../../src/assets/Images/logo.png'
 import {
     Container,
     Flex,
@@ -24,29 +25,63 @@ import {
     BsBookmarkCheckFill,
     BsHouseDoorFill,
     BsNewspaper,
-    BsPersonSquare, BsFillPersonFill, BsCalendarDate
+    BsFillPersonFill,
+    BsCalendarDate,
+    BsTextCenter,
+    BsCodeSquare,
+    BsCpu,
+    BsCloudLightningRain, BsFillBadgeArFill , BsLightningCharge, BsHeart
 } from "react-icons/bs";
 import {
-    AiFillCloseCircle,
+
     AiOutlineDoubleLeft,
     AiOutlineDoubleRight,
     AiOutlineMail,
     AiOutlineMinus, AiOutlinePhone
 } from "react-icons/ai";
+import Logo from "../Logo/Logo";
+
 
 
 
 
 const Modules = [
-    'الرياضيات',
-    'الفيزياء',
-    'العلوم الطبيعية',
-    'العربية',
-    'الانجليزية',
-    'الفرنسية',
-    'اجتماعيات',
-    'هندسة مدنية',
-    'هندسة كهريائية',
+    {
+        name: 'الرياضيات',
+        icon: BsCodeSquare,
+    },
+    {
+        name: 'الفيزياء',
+        icon: BsCpu,
+    },
+    {
+        name: 'العلوم الطبيعية',
+        icon: BsCloudLightningRain,
+    },
+    {
+        name: 'العربية',
+        icon: BsFillBadgeArFill,
+    },
+    {
+        name: 'الانجليزية',
+        icon: BsHeart,
+    },
+    {
+        name: 'الفرنسية',
+        icon: BsHeart   ,
+    },
+    {
+        name: 'اجتماعيات',
+        icon: BsCodeSquare,
+    },
+    {
+        name: 'هندسة مدنية',
+        icon: BsCodeSquare,
+    },
+    {
+        name: 'هندسة كهريائية',
+        icon: BsLightningCharge,
+    },
 ];
 const UserTypes = {
     Student: 0,
@@ -126,7 +161,7 @@ const RegisterForm = () => {
         )
     }
 
-    const YitInput = ({Icon,  ...props }) => {
+    const YitInput = ({Component, Icon,  ...props }) => {
 
         return(
 
@@ -144,7 +179,7 @@ const RegisterForm = () => {
                     <Icon size={30}></Icon>
                 </Box>
 
-                <Input {...props}></Input>
+                { Component == undefined ? <Input {...props}></Input>: <Component {...props}></Component>}
             </Box>
 
 
@@ -158,21 +193,10 @@ const RegisterForm = () => {
             <>
                 <ul>
                     <li>
-                        <Text sx={{fontSize: 6}}>قراءة شروط التسحيل جيدا من هنا</Text>
-                    </li>
-                    <li>
-                        <Text sx={{fontSize: 6}}> التأكد من صحة المعلومات قبل تاكيد الستيجل</Text>
-                    </li>
-                    <li>
-                        <Text sx={{fontSize: 6}}>
-                            التأكد من ادخل رقم الهاتف الشحصي لأننا سنتصل بكم من أجل تأكيد التسجيل
-                        </Text>
-                    </li>
-                    <li>
-                        <Text sx={{fontSize: 6}}>
-                            يمكنكم التسجيل عن طريق الاتصال بالرقم 0550750576
-                        </Text>
-                    </li>
+                        <Text>مدرسة المناهل ملتزمة يالحفاط على سرية المعلومات </Text></li>
+                        <li><Text>مدرسة المناهل ملتزمة يالحفاط على سرية المعلومات </Text></li>
+                        <Text>مدرسة المناهل ملتزمة يالحفاط على سرية المعلومات </Text>
+
                 </ul>
                 <br/>
                 <Grid sx={{
@@ -182,7 +206,6 @@ const RegisterForm = () => {
 
                         <Box sx={{display: 'flex', fontSize: 40, flexDirection: "row", alignItems: "center", justifyContent: "space-around"}}>
                             <SelectButton
-
                                 onClick={()=>{
                                   setType(UserTypes.Student)
                                     newInfo.type = UserTypes.Student
@@ -212,72 +235,47 @@ const RegisterForm = () => {
             <>
                 <Label>معلومات ولي الأمر</Label>
                 <Grid sx={{gap: '50px 20px', gridTemplateColumns: ['100%', '100%'],}} as="form">
-                    <Box >
-                        <Label>الاسم الكامل</Label>
-                        <Input
-                            placeholder={'الاسم واللقب'}
-                            ref={StepsInputs.NewParentForm.fullName.ref}
-                            onChange={onChange} name={'parentFullName'}
-                            sx={{  fontFamily: "'Amiri', serif;"}}
-                            fullWidth variant={'outlined'}  dir={'rtl'}></Input>
-                    </Box>
-                    <Box>
-                        <Label>صفة الولاية</Label>
-                        <Select
-                            ref={StepsInputs.NewParentForm.relation.ref}
-                            onChange={onChange} name={'parentRelation'}
-                            arrow={<Box></Box>}
-                            sx={{  fontFamily: "'Amiri', serif;"}}
-                            defaultValue={newInfo.parentRelation}>
-                            <option value={-1}>اختر من فضلك</option>
-                            {
-                                Relations.map(itemn =>{
-                                    return <option value={itemn.value}>{itemn.label}</option>
-                                })
-                            }
-                        </Select>
-                    </Box>
-                    <Box >
-                        <Label>رقم الهاتف</Label>
-                        <Input
-                            ref={StepsInputs.NewParentForm.phone.ref}
-                            onChange={onChange} name={'parentPhone'}
-                            type={"number"} defaultValue={newInfo.parentPhone}
-                            sx={{  fontFamily: "'Amiri', serif;"}}
-                            fullWidth variant={'outlined'} label={'الاسم الكامل'} dir={'rtl'}></Input>
-                    </Box>
-                    <Box >
-                        <Label>البريد</Label>
-                        <Input
-                            ref={StepsInputs.NewParentForm.mail.ref}
-                            onChange={onChange} name={'parentMail'}
-                            defaultValue={newInfo.parentMail}
-                            sx={{  fontFamily: "'Amiri', serif;"}}
-                            fullWidth variant={'outlined'} label={'الاسم الكامل'} dir={'rtl'}></Input>
-                    </Box>
+                    <YitInput
+                        Icon={BsFillPersonFill}
+                        placeholder={'الاسم واللقب'}
+                        ref={StepsInputs.NewParentForm.fullName.ref}
+                        onChange={onChange} name={'parentFullName'}
+                        sx={{  fontFamily: "'Amiri', serif;"}}
+                    />
+                    <YitInput
+                        Component={Select}
+                        Icon={BsFillPersonFill}
+                        ref={StepsInputs.NewParentForm.relation.ref}
+                        onChange={onChange} name={'parentRelation'}
+                        arrow={<Box></Box>}
+                        sx={{  fontFamily: "'Amiri', serif;"}}
+                        defaultValue={newInfo.parentRelation}>
+                        <option value={-1}>اختر من فضلك</option>
+                        {
+                            Relations.map(itemn =>{
+                                return <option value={itemn.value}>{itemn.label}</option>
+                            })
+                        }
+                    </YitInput>
 
-                    {/*{*/}
-                    {/*    (getAge(birthDate) < 18 && birthDate !== new Date())  &&   <Box>*/}
-                    {/*        <Label>أسجل بصفتي</Label>*/}
-                    {/*        <Select*/}
-                    {/*            onChange={(e)=>{*/}
-                    {/*           */}
-                    {/*            }}*/}
-                    {/*            arrow={*/}
-                    {/*                <Box>*/}
-                    {/*                </Box>*/}
-                    {/*            }*/}
-                    {/*            sx={{  fontFamily: "'Amiri', serif;"}}*/}
-                    {/*            defaultValue="Hello">*/}
-                    {/*            <option value={-1}>اختر من فضلك</option>*/}
-                    {/*            <option value={0}>ولي أمر</option>*/}
-                    {/*            <option value={1}>تلميد</option>*/}
-                    {/*        </Select>*/}
-                    {/*    </Box>*/}
-                    {/*}*/}
+                    <YitInput
+                        Icon={AiOutlinePhone}
+                        placeholder={'رقم الهاتف'}
+                        ref={StepsInputs.NewParentForm.phone.ref}
+                        onChange={onChange} name={'parentPhone'}
+                        type={"number"} defaultValue={newInfo.parentPhone}
+                        sx={{  fontFamily: "'Amiri', serif;"}}
+                    />
+                    <YitInput
+                        Icon={AiOutlineMail}
+                        placeholder={'البريد الإكتروني'}
+                        ref={StepsInputs.NewParentForm.mail.ref}
+                        onChange={onChange} name={'parentMail'}
+                        defaultValue={newInfo.parentMail}
+                        sx={{  fontFamily: "'Amiri', serif;"}}
+                    />
                 </Grid>
             </>
-
         )
     }
     const NewStudentForm = ({fullName}) => {
@@ -372,7 +370,10 @@ const RegisterForm = () => {
                 </Box>
                 <br/>
                 <Box>
-                    <Select
+                    <YitInput
+                        Component={Select}
+                        Icon={BsTextCenter}
+                        placeholder={'رقم الهاتف'}
                         ref={StepsInputs.NewStudentForm.level.ref}
                         onChange={(e)=>{
                             setLevel(e.target.value)
@@ -388,7 +389,8 @@ const RegisterForm = () => {
                                 return <option value={index}>{item.name}</option>
                             })
                         }
-                    </Select>
+                    </YitInput>
+
                 </Box>
             </Box>
 
@@ -396,14 +398,14 @@ const RegisterForm = () => {
     }
     const ModuleTag = ({Icon, text, id,  selected, ...props }) => {
         return(
-            <Box {...props} sx={{display: 'flex', justifyContent: "center", alignItems: "center",
+            <Box {...props} sx={{display: 'flex', justifyContent: "space-around", alignItems: "center",
                 cursor: "pointer",
-                fontSize: [20, 20], width: "30%", borderRadius: 20,
-                flexDirection: "column", p: 3, mb: 4,
+                fontSize: [20, 20], width: "45%", borderRadius: 20, maxWidth: '160px',
+                flexDirection: "row", p: 2, mb: 4, ml: '10px',
                 color: selected ? 'white': 'primary',
                 backgroundColor: selected ? 'primary': 'white',
                 border: '1px solid', borderColor: 'primary'}}>
-                <Icon size={35}></Icon>
+                <Icon size={20} style={{marginLeft: '5px'}}></Icon>
                 <Text>{text}</Text>
             </Box>
         )
@@ -434,7 +436,7 @@ const RegisterForm = () => {
                         }}
                         selected={selectedModules[index]}
                         id={0}
-                        Icon={Box} text={Modules[name]}></ModuleTag>
+                        Icon={Modules[name]['icon']} text={Modules[name]['name']}></ModuleTag>
                 ))}
             </Box>
         )
@@ -639,21 +641,33 @@ const RegisterForm = () => {
     }
 
     useEffect(() => {
-
-        return () => {
-
-        };
+        // let vh = window.innerHeight
+        // document.getElementById('Containerrrr').style.height = vh
+        // // Then we set the value in the --vh custom property to the root of the document
+        // // document.documentElement.style.setProperty('--vh', `${vh}px`);
+        //
+        // const onResize = (e)=>{
+        //     let vh = window.innerHeight
+        //     document.getElementById('Containerrrr').style.height = vh+'px'
+        // }
+        // window.addEventListener('resize',  onResize)
+        //
+        // return () => {
+        //     window.removeEventListener('resize', onResize)
+        // };
     }, []);
 
     return (
-        <Container sx={{mt: '15vh', position: "relative"}}>
-            <Box sx={MainStyle.Container}>
+        <Container sx={{mt: '15vh'}}>
+            <Box sx={MainStyle.Container} id={'Containerrrr'}>
                 <Box sx={MainStyle.TopBox}>
                     <AiOutlineMinus  size={40}></AiOutlineMinus>
                 </Box>
                 <Box sx={MainStyle.Content}>
                     <Box sx={MainStyle.imageConn}>
-                        <Box className={'backdrop'}></Box>
+                        <Box className={'backdrop'}>
+                            <Image src={logo}></Image>
+                        </Box>
                         <Image src={rr} sx={{height: '100%', width: '100%'}}></Image>
                     </Box>
                     <Box sx={MainStyle.textConn} id={'ContentBox'}>
@@ -662,6 +676,7 @@ const RegisterForm = () => {
                                 DrawSteps(currentStep)
                             }
                         </Box>
+                        <br/>
                         {currentStep !== 10 && <Box id={'actionsBox'} sx={MainStyle.actionsBox}>
                                 {currentStep !== 0 &&     <Button
                                         type={"button"} onClick={()=>{
@@ -688,6 +703,7 @@ const RegisterForm = () => {
                                     </Button>
                                 }
                         </Box>}
+
                     </Box>
                 </Box>
             </Box>
