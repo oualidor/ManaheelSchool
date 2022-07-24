@@ -89,8 +89,9 @@ function Layout({ children }) {
                 sx={style.Backdrop}
                 onClick={(e)=>{
                     if(e.target.id == "BackDrop"){
-                        dispatch({type: HideBackDrop})}
+                        dispatch({type: HideBackDrop})
                     }
+                }
                 }
             >
                 <BackDropContent Component={ BackDrop.Component} props={ BackDrop.props}></BackDropContent>

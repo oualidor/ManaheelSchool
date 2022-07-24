@@ -17,7 +17,7 @@ const Style = {
             borderTopRightRadius: 40,
             borderTopLeftRadius: 40,
             bottom: 0, left: 0, top: '15vh',
-            position: ['fixed', 'fixed', 'fixed', 'fixed', 'static', 'static', 'static'],
+            position: ['fixed', 'fixed', 'static', 'static', 'static', 'static', 'static'],
             height: ['85vh', '85vh', '85vh', '85vh', '75vh', '75vh', '75vh'],
             p: 0,
             width: "100%",

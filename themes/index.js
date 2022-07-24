@@ -397,7 +397,7 @@ export default function createTheme(language) {
             },
             input: {
                 borderRadius: 15,
-                pr: '20%',
+                pr: '80px',
                 color: 'text',
                 borderColor: 'primary',
                 fontFamily: language == "en" ? "'DM Sans', sans-serif;": "'Amiri', serif;",
@@ -411,7 +411,7 @@ export default function createTheme(language) {
             },
             select: {
                 borderRadius: 15,
-                pr: '20%',
+                pr: '80px',
                 color: 'textPrimary',
                 borderColor: 'primary',
                 fontFamily: language == "en" ? "'DM Sans', sans-serif;": "'Amiri', serif;",

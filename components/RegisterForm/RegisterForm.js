@@ -40,6 +40,9 @@ import {
     AiOutlineMinus, AiOutlinePhone
 } from "react-icons/ai";
 import Logo from "../Logo/Logo";
+import DoneMark from "../DoneMark";
+import {useDispatch} from "react-redux";
+import {HideBackDrop} from "../../src/Apis/Redux/Actions/Types";
 
 
 
@@ -193,10 +196,9 @@ const RegisterForm = () => {
             <>
                 <ul>
                     <li>
-                        <Text>مدرسة المناهل ملتزمة يالحفاط على سرية المعلومات </Text></li>
-                        <li><Text>مدرسة المناهل ملتزمة يالحفاط على سرية المعلومات </Text></li>
-                        <Text>مدرسة المناهل ملتزمة يالحفاط على سرية المعلومات </Text>
-
+                        <Text as={'h2'} sx={{fontSize: [6]}}>تلتزم مدرسة المناهل يالحفاط على سرية المعلومات و عدم مشاركتها</Text></li>
+                        <li><Text as={'h2'} sx={{fontSize: [6]}}>يتم نسجيل معلومات و عنوان الجهاظ المستخدم لملأ منودج التسجيل</Text></li>
+                        <li><Text as={'h2'} sx={{fontSize: [6]}}>ادا واجهتم صعوبة في التسجبل، يرجي الاتصال بتا و سيقوم أخد الأعوان يالتسجيل بدلا عنكم</Text></li>
                 </ul>
                 <br/>
                 <Grid sx={{
@@ -442,9 +444,16 @@ const RegisterForm = () => {
         )
     }
     const ConclusionStep = ({fullName}) => {
+
+        const dispatch = useDispatch()
         const [state, setState] = useState(0);
         useEffect(() => {
-
+            setTimeout(()=>{
+                setState(1)
+                setTimeout(()=>{
+                    dispatch({type: HideBackDrop})
+                }, 1500)
+            }, 1500)
             return () => {
 
             };
@@ -453,7 +462,7 @@ const RegisterForm = () => {
             case 0:
                 return (
 
-                    <Box sx={{display: "flex", alignItems: 'center', justifyContent: 'center',  height: '100%'}}>
+                    <Box sx={{display: "flex", alignItems: 'center', justifyContent: 'center',  height: '100%', mt: '120px'}}>
                         <Spinner size={150}/>
                     </Box>
 
@@ -464,16 +473,16 @@ const RegisterForm = () => {
 
                     <Box sx={{
                         display: "flex", flexDirection: 'column',
-                        color: 'primary',
-                         alignItems: 'center', justifyContent: 'center',  height: '100%'}}>
-                        <Box
-                            sx={{
+                        color: 'primary', backgroundColor: '',
+                         alignItems: 'center', justifyContent: 'center',  height: '100%', mt: '120px'}}>
+                        <Box sx={{
                                 display: "flex",
                                 color: 'primary',
-                                alignItems: 'center', justifyContent: 'center'}}>
-                            <BsBookmarkCheckFill size={160}></BsBookmarkCheckFill>
-                            <Text sx={{textAlign: "center"}} as={'h1'}>تم تسجيل طلبكم بنجاح، سيتصل بكم أحد الأعوان لتأكيد تسجيلكم</Text>
+                                alignItems: 'center', justifyContent: 'center', height: '100%'}}>
+                            <DoneMark></DoneMark>
+                            <Text sx={{textAlign: "right", mr: '30px'}} as={'h2'}>تم تسجيل طلبكم بنجاح، سيتصل بكم أحد الأعوان لتأكيد تسجيلكم</Text>
                         </Box>
+
 
                     </Box>
 
