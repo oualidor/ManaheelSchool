@@ -52,8 +52,17 @@ const Style = {
             backgroundColor: '',
             height: '100%', width: '100%',  p:[4, 2, 2, 2, 6, 20, '8%'],
             '.line': {
-                gap: '10px 10px', gridTemplateColumns: ['100%', '100%', '50% 50%'],
-                mb: '20px'
+                gap: '40px 10px', gridTemplateColumns: ['100%', '100%', '50% 50%'],
+                mb: '40px'
+            },
+            '.line1': {
+                gridTemplateColumns: ['100%'],
+            },
+            '.line3-7': {
+                gridTemplateColumns: ['100%', '100%', '70% 30%'],
+            },
+            '.line3-3-6': {
+                gridTemplateColumns: ['100%', '100%', '45% 25% 30%'],
             },
             selected: {
 

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {forwardRef, useEffect, useState} from "react";
 import logo from '../../src/assets/Images/logo.png'
 import {
     Container,
@@ -18,7 +18,7 @@ import {
 import Style from './Style'
 import MuiComponent from "../MuiComponent";
 import rr from '../../src/assets/Images/rr.jpg'
-import {Periods, Relations, StepsInputs} from "./StepsInputs";
+import {Modules, Periods, Relations, SexArray, StepsInputs, StepsValidator, UserTypes} from "./RegistreFormData";
 import {
     BsFillPersonLinesFill,
     BsFillPeopleFill,
@@ -30,9 +30,10 @@ import {
     BsTextCenter,
     BsCodeSquare,
     BsCpu,
-    BsCloudLightningRain, BsFillBadgeArFill , BsLightningCharge, BsHeart
+    BsCloudLightningRain, BsFillBadgeArFill, BsLightningCharge, BsHeart, BsGenderAmbiguous
 } from "react-icons/bs";
 import {
+    AiFillCloseCircle,
 
     AiOutlineDoubleLeft,
     AiOutlineDoubleRight,
@@ -42,57 +43,18 @@ import {
 import Logo from "../Logo/Logo";
 import DoneMark from "../DoneMark";
 import {useDispatch} from "react-redux";
-import {HideBackDrop} from "../../src/Apis/Redux/Actions/Types";
+import {HideBackDrop, PushNotification} from "../../src/Apis/Redux/Actions/Types";
+import _Student from "../../src/Models/_Student";
+import _Parent from "../../src/Models/_Parent";
 
 
 
 
-
-const Modules = [
-    {
-        name: 'الرياضيات',
-        icon: BsCodeSquare,
-    },
-    {
-        name: 'الفيزياء',
-        icon: BsCpu,
-    },
-    {
-        name: 'العلوم الطبيعية',
-        icon: BsCloudLightningRain,
-    },
-    {
-        name: 'العربية',
-        icon: BsFillBadgeArFill,
-    },
-    {
-        name: 'الانجليزية',
-        icon: BsHeart,
-    },
-    {
-        name: 'الفرنسية',
-        icon: BsHeart   ,
-    },
-    {
-        name: 'اجتماعيات',
-        icon: BsCodeSquare,
-    },
-    {
-        name: 'هندسة مدنية',
-        icon: BsCodeSquare,
-    },
-    {
-        name: 'هندسة كهريائية',
-        icon: BsLightningCharge,
-    },
-];
-const UserTypes = {
-    Student: 0,
-    Parent : 1
-}
 
 const NEXT = "التالي"
 const SAVE = "تسجيل"
+
+
 function getAge(dateString) {
     var today = new Date();
     var age = today.getFullYear() - dateString.getFullYear();
@@ -104,23 +66,20 @@ function getAge(dateString) {
 }
 const MainStyle = Style.Main
 const RegisterForm = () => {
-    const context = useThemeUI()
-    const { theme, components, colorMode, setColorMode } = context
-    const [personName, setPersonName] = React.useState([]);
+    let dispatch = useDispatch()
     const StepsNames = ['NewUnknownForm', 'NewStudentForm', 'ModulesForm', 'NewParentForm']
     const [currentStep, setCurrentStep] = useState(0);
     const [previousStep, setPreviousStep] = useState(0);
     const [period, setPeriod] = useState(-1);
     const [level, setLevel] = useState(0);
     const [type, setType] = useState(-1);
-    const [checked, setChecked] = useState(false);
     const [newInfo, setNewInfo] = useState({
-        type: -1, birthDate: new Date(), parentRelation: -1, period: -1, level: 0, selectedModules: [],
+        type: -1, parentRelation: -1, period: -1, level: 0, selectedModules: [], sex: -1,
     });
-    // Array(Periods[period]['levels'][level]['modules'].length).fill(false)
-
-
     const NextButton = React.createRef();
+
+
+
 
     const onChange = (e)=>{
         newInfo[e.target.name] = e.target.value
@@ -164,11 +123,10 @@ const RegisterForm = () => {
         )
     }
 
-    const YitInput = ({Component, Icon,  ...props }) => {
-
+    const YitInput = forwardRef(({Component,   Icon, errorMsg,  ...props }, ref) => {
+        const { ref1, ref2 } = ref;
         return(
-
-            <Box sx={{position: "relative"}}>
+            <Box sx={{position: "relative"}} >
                 <Box
 
                     sx={
@@ -180,12 +138,71 @@ const RegisterForm = () => {
                         borderTopRightRadius: 15, borderBottomRightRadius: 15,}}
                 >
                     <Icon size={30}></Icon>
+
+                </Box>
+                <Box
+
+                    sx={
+                        {
+
+                            p: 2,
+                            display: 'flex', flexDirection: 'column', justifyContent: 'center',
+                            color: 'red',
+                            position: "absolute", top: '80%', right: '0%',  height: '100%',
+                            borderTopRightRadius: 15, borderBottomRightRadius: 15,}}
+                >
+
+                    <Text  ref={ref1} sx={{display: "none",}}>{errorMsg}</Text>
                 </Box>
 
-                { Component == undefined ? <Input {...props}></Input>: <Component {...props}></Component>}
+                { Component == undefined ? <Input ref={ref2} {...props}></Input>: <Component ref={ref2} {...props}></Component>}
             </Box>
+        )
+    })
 
+    const ModuleTag = ({Icon, text, id,  selected, ...props }) => {
+        return(
+            <Box {...props} sx={{display: 'flex', justifyContent: "space-around", alignItems: "center",
+                cursor: "pointer",
+                fontSize: [20, 20], width: "45%", borderRadius: 20, maxWidth: '160px',
+                flexDirection: "row", p: 2, mb: 4, ml: '10px',
+                color: selected ? 'white': 'primary',
+                backgroundColor: selected ? 'primary': 'white',
+                border: '1px solid', borderColor: 'primary'}}>
+                <Icon size={20} style={{marginLeft: '5px'}}></Icon>
+                <Text>{text}</Text>
+            </Box>
+        )
+    }
+    const ModulesForm = ({fullName}) => {
 
+        const [selectedModules, setSelectedModules] = useState(Array(Periods[period]['levels'][level]['modules'].length).fill(false));
+        const [render, setRender] = useState(false);
+        useEffect(() => {
+
+            return () => {
+
+            };
+        }, [newInfo, selectedModules]);
+
+        return (
+            <Box sx={{
+                display: 'flex', flexDirection: "row", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap",
+                fontSize: 40,
+            }}>
+                { Periods[period]['levels'][level]['modules'].map((name, index) => (
+                    <ModuleTag
+                        onClick={()=>{
+                            selectedModules[index] = !selectedModules[index]
+                            setSelectedModules(selectedModules)
+                            newInfo.selectedModules = selectedModules
+                            setRender(!render)
+                        }}
+                        selected={selectedModules[index]}
+                        id={0}
+                        Icon={Modules[name]['icon']} text={Modules[name]['name']}></ModuleTag>
+                ))}
+            </Box>
         )
     }
 
@@ -232,11 +249,138 @@ const RegisterForm = () => {
 
         )
     }
+    const NewStudentForm = ({fullName}) => {
+        useEffect(() => {
+
+            return () => {
+
+            };
+        }, [newInfo, ]);
+        return (
+            <Box as={'form'}>
+                <Grid sx={{}} className={'line line3-7'}>
+                    <YitInput
+                        Icon={BsFillPersonFill}
+                        placeholder={'الاسم واللقب'}
+                        ref={{
+                            ref1 : StepsInputs.NewStudentForm.name.ref,
+                            ref2: StepsInputs.NewStudentForm.name.inputRef
+                        }}
+
+                        onChange={onChange} name={'studentName'}
+                        defaultValue={newInfo.studentName}
+                        errorMsg={'يجب أن تدخل اسمك الحقيقي'}
+                    />
+                    <YitInput
+                        Component={Select}
+                        Icon={BsGenderAmbiguous}
+                        ref={{
+                            ref1 : StepsInputs.NewStudentForm.sex.ref,
+                            ref2: StepsInputs.NewStudentForm.sex.inputRef
+                        }}
+                        onChange={onChange}  name={'sex'}
+                        arrow={<Box></Box>}
+                        sx={{  fontFamily: "'Amiri', serif;"}}
+                        errorMsg={'اختر الجنس'}
+                        defaultValue={newInfo.sex}>
+                        <option value={-1}>{'اختر من فضلك'}</option>
+                        {
+                            SexArray.map((item, index) =>{
+                                return <option value={item.Id}>{item.label}</option>
+                            })
+                        }
+                    </YitInput>
+                </Grid>
+                <Grid sx={{}} as="form" className={'line'}>
+                    <YitInput
+                        Icon={BsCalendarDate}
+                        ref={{
+                            ref1 : StepsInputs.NewStudentForm.birthDate.ref,
+                            ref2: StepsInputs.NewStudentForm.birthDate.inputRef
+                        }}
+                        onChange={(e)=>{
+                            newInfo.birthDate = e.target.value
+                            setNewInfo(newInfo)
+                        }}
+                        defaultValue={newInfo.birthDate}
+                        type={"date"}
+                        errorMsg={'اختر تاريخ الميلاد'}
+                    />
+                    <YitInput
+                        Icon={AiOutlinePhone}
+                        placeholder={'رقم الهاتف'}
+                        ref={{
+                            ref1 : StepsInputs.NewStudentForm.phone.ref,
+                            ref2: StepsInputs.NewStudentForm.phone.inputRef
+                        }}
+                        onChange={onChange} name={'phone'}
+                        type={"tel"} defaultValue={newInfo.phone}
+                        errorMsg={'ادخل رقم هاتف من 10 أرقام'}
+                    />
+
+                </Grid>
+                <br/>
+                <Box sx={{display: 'flex', fontSize: 40, flexDirection: "row", alignItems: "center", justifyContent: "space-between"}}>
+                    <SelectButton
+                        onClick={()=>{
+                            setPeriod(0)
+                            newInfo.period = 0
+                        }}
+                        selectedValue={period}
+                        id={0}
+                        Icon={BsHouseDoorFill} text={'ابتدائئ'}></SelectButton>
+                    <SelectButton
+
+                        onClick={()=>{
+                            setPeriod(1)
+                            newInfo.period = 1
+                        }}
+                        selectedValue={period}
+                        id={1}
+                        Icon={BsNewspaper} text={'متوسط'}></SelectButton>
+                    <SelectButton
+                        onClick={()=>{
+                            setPeriod(2)
+                            newInfo.period = 2
+                        }}
+                        selectedValue={period}
+                        id={2}
+                        Icon={BsFillPeopleFill} text={'ثانوي'}></SelectButton>
+                </Box>
+                <br/>
+                <Box>
+                    <YitInput
+                        Component={Select}
+                        Icon={BsTextCenter}
+                        placeholder={'رقم الهاتف'}
+                        ref={{
+                            ref1 : StepsInputs.NewStudentForm.level.ref,
+                            ref2: StepsInputs.NewStudentForm.level.inputRef
+                        }}
+                        onChange={(e)=>{
+                            setLevel(e.target.value)
+                            newInfo.level = e.target.value
+                        }} name={'level'}
+                        arrow={<Box></Box>}
+                        errorMsg={'اخترالمستوى الدراسي'}
+                        defaultValue={newInfo.level}>
+                        <option value={-1}>{'اختر من فضلك'}</option>
+                        {
+                            period !== -1 &&
+                            Periods[period]['levels'].map((item, index) =>{
+                                return <option value={index}>{item.name}</option>
+                            })
+                        }
+                    </YitInput>
+                </Box>
+            </Box>
+        )
+    }
     const NewParentForm = ({}) => {
         return (
             <>
                 <Label>معلومات ولي الأمر</Label>
-                <Grid sx={{gap: '50px 20px', gridTemplateColumns: ['100%', '100%'],}} as="form">
+                <Grid sx={{}} className={'line line3-7'}>
                     <YitInput
                         Icon={BsFillPersonFill}
                         placeholder={'الاسم واللقب'}
@@ -244,6 +388,23 @@ const RegisterForm = () => {
                         onChange={onChange} name={'parentFullName'}
                         sx={{  fontFamily: "'Amiri', serif;"}}
                     />
+
+                    <YitInput
+                        Component={Select}
+                        Icon={BsGenderAmbiguous}
+                        onChange={onChange}  name={'parentSex'}
+                        arrow={<Box></Box>}
+                        defaultValue={newInfo.parentSex}>
+                        <option value={-1}>{'اختر من فضلك'}</option>
+                        {
+                            SexArray.map((item, index) =>{
+                                return <option value={item.Id}>{item.label}</option>
+                            })
+                        }
+                    </YitInput>
+                </Grid>
+                <Grid className={'line line1'} as="form">
+
                     <YitInput
                         Component={Select}
                         Icon={BsFillPersonFill}
@@ -280,183 +441,56 @@ const RegisterForm = () => {
             </>
         )
     }
-    const NewStudentForm = ({fullName}) => {
-        useEffect(() => {
 
-            return () => {
-
-            };
-        }, [newInfo, ]);
-
-        return (
-            <Box as={'form'}>
-                <Grid sx={{}} className={'line'}>
-                    <YitInput
-                        Icon={BsFillPersonFill}
-                        placeholder={'الاسم واللقب'}
-                        ref={StepsInputs.NewStudentForm.fullName.ref}
-                        onChange={onChange} name={'studentName'}
-                        defaultValue={newInfo.studentName}
-                        sx={{  fontFamily: "'Amiri', serif;"}}
-                        dir={'rtl'}
-                    />
-
-                    <YitInput
-                        Icon={BsCalendarDate}
-                        placeholder={'رقم الهاتف'}
-                        ref={StepsInputs.NewStudentForm.birthDate.ref}
-                        onChange={(e)=>{
-                            newInfo.birthDate = e.target.value
-                            setNewInfo(newInfo)
-                        }}
-                        defaultValue={newInfo.birthDate}
-                        type={"date"}
-                        sx={{  fontFamily: "'Amiri', serif;"}}
-                        fullWidth  dir={'rtl'}
-                    />
-
-
-                </Grid>
-                <Grid sx={{}} as="form" className={'line'}>
-                    <YitInput
-                        placeholder={'البريد الإلكتروني'}
-                        Icon={AiOutlineMail}
-                        ref={StepsInputs.NewStudentForm.mail.ref}
-                        onChange={onChange} name={'mail'}
-                        defaultValue={newInfo.mail} type={"email"}
-                        sx={{  fontFamily: "'Amiri', serif;"}}
-                        fullWidth   dir={'rtl'}
-                    />
-
-                        <YitInput
-                            Icon={AiOutlinePhone}
-                            placeholder={'رقم الهاتف'}
-                            ref={StepsInputs.NewStudentForm.phone.ref}
-                            onChange={onChange} name={'phone'}
-                            type={"tel"} defaultValue={newInfo.phone}
-                            sx={{  fontFamily: "'Amiri', serif;"}}
-                            fullWidth dir={'rtl'}
-                        />
-
-
-
-                </Grid>
-                <br/>
-                <Box sx={{display: 'flex', fontSize: 40, flexDirection: "row", alignItems: "center", justifyContent: "space-between"}}>
-                    <SelectButton
-                        onClick={()=>{
-                            setPeriod(0)
-                            newInfo.period = 0
-                        }}
-                        selectedValue={period}
-                        id={0}
-                        Icon={BsHouseDoorFill} text={'ابتدائئ'}></SelectButton>
-                    <SelectButton
-
-                        onClick={()=>{
-                            setPeriod(1)
-                            newInfo.period = 1
-                        }}
-                        selectedValue={period}
-                        id={1}
-                        Icon={BsNewspaper} text={'متوسط'}></SelectButton>
-                    <SelectButton
-
-                        onClick={()=>{
-                            setPeriod(2)
-                            newInfo.period = 2
-                        }}
-                        selectedValue={period}
-                        id={2}
-                        Icon={BsFillPeopleFill} text={'ثانوي'}></SelectButton>
-                </Box>
-                <br/>
-                <Box>
-                    <YitInput
-                        Component={Select}
-                        Icon={BsTextCenter}
-                        placeholder={'رقم الهاتف'}
-                        ref={StepsInputs.NewStudentForm.level.ref}
-                        onChange={(e)=>{
-                            setLevel(e.target.value)
-                            newInfo.level = e.target.value
-                        }} name={'level'}
-                        arrow={<Box></Box>}
-                        sx={{  fontFamily: "'Amiri', serif;"}}
-                        defaultValue={newInfo.level}>
-                        <option value={-1}>{'اختر من فضلك'}</option>
-                        {
-                            period !== -1 &&
-                            Periods[period]['levels'].map((item, index) =>{
-                                return <option value={index}>{item.name}</option>
-                            })
-                        }
-                    </YitInput>
-
-                </Box>
-            </Box>
-
-        )
-    }
-    const ModuleTag = ({Icon, text, id,  selected, ...props }) => {
-        return(
-            <Box {...props} sx={{display: 'flex', justifyContent: "space-around", alignItems: "center",
-                cursor: "pointer",
-                fontSize: [20, 20], width: "45%", borderRadius: 20, maxWidth: '160px',
-                flexDirection: "row", p: 2, mb: 4, ml: '10px',
-                color: selected ? 'white': 'primary',
-                backgroundColor: selected ? 'primary': 'white',
-                border: '1px solid', borderColor: 'primary'}}>
-                <Icon size={20} style={{marginLeft: '5px'}}></Icon>
-                <Text>{text}</Text>
-            </Box>
-        )
-    }
-    const ModulesForm = ({fullName}) => {
-
-        const [selectedModules, setSelectedModules] = useState(Array(Periods[period]['levels'][level]['modules'].length).fill(false));
-        const [render, setRender] = useState(false);
-        useEffect(() => {
-
-            return () => {
-
-            };
-        }, [newInfo, selectedModules]);
-
-        return (
-            <Box sx={{
-                display: 'flex', flexDirection: "row", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap",
-                fontSize: 40,
-            }}>
-                { Periods[period]['levels'][level]['modules'].map((name, index) => (
-                    <ModuleTag
-                        onClick={()=>{
-                            selectedModules[index] = !selectedModules[index]
-                            setSelectedModules(selectedModules)
-                            newInfo.selectedModules = selectedModules
-                            setRender(!render)
-                        }}
-                        selected={selectedModules[index]}
-                        id={0}
-                        Icon={Modules[name]['icon']} text={Modules[name]['name']}></ModuleTag>
-                ))}
-            </Box>
-        )
-    }
     const ConclusionStep = ({fullName}) => {
 
         const dispatch = useDispatch()
         const [state, setState] = useState(0);
-        useEffect(() => {
-            setTimeout(()=>{
-                setState(1)
-                setTimeout(()=>{
-                    dispatch({type: HideBackDrop})
-                }, 1500)
-            }, 1500)
-            return () => {
 
-            };
+        let StudentInfo = {
+            name : newInfo.studentName,
+            phone : newInfo.phone,
+            birthDate: newInfo.birthDate,
+            sex: newInfo.sex,
+        }
+
+        const  ParentInfo = {
+            name : newInfo.parentFullName,
+            phone : newInfo.parentPhone,
+            sex: newInfo.parentSex,
+        }
+
+
+
+        useEffect(() => {
+             _Parent.create(ParentInfo).then(r=>{
+                if(r.finalResult === true){
+                    console.log(r)
+                    StudentInfo.parentId = r.result.id
+                    StudentInfo.parentRelation = newInfo.parentRelation
+                    _Student.create(StudentInfo).then(r=>{
+                        if(r.finalResult === true){
+                            setState(1)
+                            setTimeout(()=>{
+                                dispatch({type: HideBackDrop})
+                            }, 1500)
+                        }
+                        else{
+                            setState(2)
+                        }
+                        console.log(r)
+                    }).catch(e=>{
+                        setState(2)
+                        console.log(e)
+                    })
+                }
+                else{
+                    setState(2)
+                }
+             }).catch(e=>{
+                setState(2)
+                console.log(e)
+            })
         }, []);
         switch(state){
             case 0:
@@ -491,144 +525,155 @@ const RegisterForm = () => {
             case 2:
                 return (
 
-                    <>
+                    <Box sx={{
+                        display: "flex", flexDirection: 'column',
+                        color: 'primary', backgroundColor: '',
+                        alignItems: 'center', justifyContent: 'center',  height: '100%', mt: '120px'}}>
+                        <Box sx={{
+                            display: "flex",
+                            color: 'primary',
+                            alignItems: 'center', justifyContent: 'center', height: '100%'}}>
+                            <AiFillCloseCircle size={80}></AiFillCloseCircle>
+                            <Text sx={{textAlign: "right", mr: '30px'}} as={'h2'}>
+                                حدت خطأ أثناء التسحيل، الرجاء التأكد من اعدادات الأنترنت بجاهزك
+                            </Text>
+                        </Box>
+                        <Text sx={{textAlign: "right", mr: '30px'}} as={'h2'}>
+                            أطا كنت تواجه صعوبة في التسجيل يرجى الاتصال بالرقم 0550750576
+                        </Text>
 
-                    </>
+                    </Box>
 
                 )
                 break;
         }
 
     }
-    // const ConclusionStep = ({fullName}) => {
-    //     useEffect(() => {
-    //
-    //         return () => {
-    //
-    //         };
-    //     }, []);
-    //
-    //     return (
-    //         <>
-    //             <Grid sx={{gap: '50px 20px', gridTemplateColumns: ['100%', '50% 50%'],}}>
-    //                 <InfoTag title={"الاسم واللقب"} value={newInfo.studentName}/>
-    //                 <InfoTag title={"تاريخ الميلاد"} value={newInfo.birthDate.toDateString()}/>
-    //             </Grid>
-    //             <br/>
-    //             <Grid sx={{gap: '50px 20px', gridTemplateColumns: ['100%', '50% 50%'],}}>
-    //                 <InfoTag title={"الهاتف"} value={newInfo.phone}/>
-    //                 <InfoTag title={"البريد"} value={newInfo.mail}/>
-    //             </Grid>
-    //             <br/>
-    //             <Grid sx={{gap: '50px 20px', gridTemplateColumns: ['100%', '50% 50%'],}}>
-    //                 <InfoTag title={"الطور"} value={Periods[newInfo.period]["name"]}/>
-    //                 <InfoTag title={"المستوى"} value={Periods[newInfo.period]["levels"][newInfo.level]['name']}/>
-    //             </Grid>
-    //             <Box sx={{display: "flex", flexDirection: 'row', justifyContent: 'space-around',}}>
-    //                 {
-    //                     newInfo.selectedModules.map((module, i) =>{
-    //                         if(module){
-    //                             return    <Text>{Modules[i]}</Text>
-    //                         }
-    //
-    //                     })
-    //                 }
-    //             </Box>
-    //             <br/>
-    //             <br/>
-    //             <Grid sx={{gap: '50px 20px', gridTemplateColumns: ['100%', '50% 50%'],}}>
-    //                 <InfoTag title={"ولي الأمر"} value={newInfo.parentFullName}/>
-    //                 <InfoTag title={"صفة الولاية"} value={Relations[newInfo.parentRelation].label}/>
-    //             </Grid> <br/>
-    //             <Grid sx={{gap: '50px 20px', gridTemplateColumns: ['100%', '50% 50%'],}}>
-    //                 <InfoTag title={"رقم الهاتف"} value={newInfo.parentPhone}/>
-    //                 <InfoTag title={"البريد"} value={newInfo.parentMail}/>
-    //             </Grid>
-    //         </>
-    //
-    //     )
-    // }
-    const ValidateStep = (currentStep) =>{
+
+    const ValidateStep = (currentStep) => {
+        
         let valid = true
+        let i=0
         for (let Input in StepsInputs[StepsNames[currentStep]]) {
-            const {ref, validator} = (StepsInputs[StepsNames[currentStep]][Input])
-            if(!validator(ref.current.value)){
+            console.log(i)
+            const {ref, inputRef,  validator} = (StepsInputs[StepsNames[currentStep]][Input])
+            let inputSelector = inputRef.current
+            let errorTextSelector = ref.current
+
+            if (!validator(inputSelector.value)){
+                alert(Input)
+                // errorSelector.style.display = 'flex'
                 valid = false
-                ref.current.classList.add('BadEntry')
-                setTimeout(()=>{
-                    ref.current.classList.remove('BadEntry')
-                }, 500)
+                inputSelector.classList.add('BadEntry')
+                errorTextSelector.style.display = 'flex'
+                setTimeout(() => {
+                    inputSelector.classList.remove('BadEntry')
+                }, 1500)
+                setTimeout(() => {
+                    errorTextSelector.style.display = 'none'
+                }, 1500)
             }
+            i++
         }
         return valid
     }
-    const NextStat = () =>{
-        // if(ValidateStep(currentStep)){
-        if(true){
-            switch (currentStep){
-                case 0: return true; break
 
-                case 1:
-                    return true
-                    break;
-                case 11:
-                    return true
-                    break;
-                case 2:
-                    return true
-                    break;
+    const SubmitStep = async (currentStep) => {
+        const {onSubmit} = StepsValidator[StepsNames[currentStep]]
+        let data  = {}
+        switch (currentStep){
+            case 0:
+
+                break;
+            case 1:
+                data = {
+                    name : newInfo.studentName,
+                    phone : newInfo.phone,
+                    birthDate: newInfo.birthDate,
+                    sex: newInfo.sex,
+                }
+
+                break;
+        }
+        let res = await onSubmit(data)
+
+
+        if(res.finalResult){
+            return  true
+        }
+        res.error.errors.forEach(error =>{
+            let path = error.path
+            let message = error.message
+            if(path === 'global'){
+                dispatch({type: PushNotification, payLoad: {text: message, variant: "error", duration: 4000, id: Math.random()}})
+            }else {
+                const {ref, inputRef,  validator, nested} = (StepsInputs[StepsNames[currentStep]][path])
+                let errorTextSelector = ref.current
+                let inputSelector = inputRef.current
+                inputSelector.classList.add('BadEntry')
+                errorTextSelector.style.display = 'flex'
+                errorTextSelector.innerHTML = message
+                setTimeout(()=>{
+                    inputSelector.classList.remove('BadEntry')
+                    errorTextSelector.style.display = 'none'
+                }, 1500)
             }
-        }else {
-            return false
+        })
+
+
+        return false
+    }
+
+    const HandleNext = async (currentStep) => {
+        let valid =  ValidateStep(currentStep)
+        if (valid) {
+            SubmitStep(currentStep)
+                .then(res =>{
+                    if(res)
+                    switch (currentStep) {
+                        case 0:
+                            if (newInfo.type == UserTypes.Student) {
+                                newInfo.studentName = newInfo.preFullName
+                                setCurrentStep(1)
+                                setPreviousStep(0)
+                            }
+                            if (newInfo.type == UserTypes.Parent) {
+                                newInfo.parentFullName = newInfo.preFullName
+                                setCurrentStep(2)
+                                setPreviousStep(0)
+                            }
+                            break;
+                        case 1:
+                            setPreviousStep(1)
+                            setCurrentStep(11)
+                            break;
+                        case 11:
+                            if (newInfo.type == UserTypes.Student) {
+                                setCurrentStep(2)
+                                setPreviousStep(11)
+                            }
+                            if (newInfo.type == UserTypes.Parent) {
+                                setCurrentStep(10)
+                                setCurrentStep(11)
+                            }
+                            break;
+                        case 2:
+                            if (newInfo.type == UserTypes.Student) {
+                                setCurrentStep(10)
+                                setPreviousStep(2)
+                            }
+                            if (newInfo.type == UserTypes.Parent) {
+                                setCurrentStep(1)
+                                setPreviousStep(2)
+                                //go to resume
+                            }
+                    }
+                })
+                .catch()
         }
 
     }
-    const HandleNext = (currentStep) =>{
-        if (NextStat()){
-            switch (currentStep){
-                case 0:
-                    if(newInfo.type == UserTypes.Student){
-                        newInfo.studentName = newInfo.preFullName
-                        setCurrentStep(1)
-                        setPreviousStep(0)
-                    }
-                    if(newInfo.type == UserTypes.Parent){
-                        newInfo.parentFullName = newInfo.preFullName
-                        setCurrentStep(2)
-                        setPreviousStep(0)
-                    }
-                    break;
-                case 1:
-                    setPreviousStep(1)
-                    setCurrentStep(11)
-                    break;
-                case 11:
-                    if(newInfo.type == UserTypes.Student){
-                        setCurrentStep(2)
-                        setPreviousStep(11)
-                    }
-                    if(newInfo.type == UserTypes.Parent){
-                        setCurrentStep(10)
-                        setCurrentStep(11)
-                    }
-                    break;
-                case 2:
-                    if(newInfo.type == UserTypes.Student){
-                        setCurrentStep(10)
-                        setPreviousStep(2)
-                    }
-                    if(newInfo.type == UserTypes.Parent){
-                        setCurrentStep(1)
-                        setPreviousStep(2)
-                        //go to resume
-                    }
-            }
-        }
-        else {
 
-        }
-
-    }
     const DrawSteps = (currentStep) =>{
         switch(currentStep){
             case 0:
@@ -686,7 +731,7 @@ const RegisterForm = () => {
                             }
                         </Box>
                         <br/>
-                        {currentStep !== 10 && <Box id={'actionsBox'} sx={MainStyle.actionsBox}>
+                        { <Box id={'actionsBox'} sx={MainStyle.actionsBox}>
                                 {currentStep !== 0 &&     <Button
                                         type={"button"} onClick={()=>{
                                         setPreviousStep(currentStep)

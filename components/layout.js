@@ -24,7 +24,6 @@ const NotificationsContent = ({notificationsList})=>{
                 return (
                     <Alert sx={{width: "100%", variant: "alerts."+notification.variant, mb: 2}}>
                         {notification.text}
-                        <Close ml="auto" mr={-2} />
                     </Alert>
                 )
             })
@@ -58,7 +57,7 @@ function Layout({ children }) {
             display: BackDrop.mount ? "flex":"none",
         },
         NotificationsContainer: {
-            backgroundColor: "yellow",
+            backgroundColor: "",
             position: "absolute",
             right: "5%",
             width: ["85vw", "85vw", "60vw", "60vw", "40vw", "40vw"],

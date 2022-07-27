@@ -492,8 +492,10 @@ export default function createTheme(language) {
             },
         },
         alerts: {
+
             primary : {
-                backgroundColor: "green"
+                fontFamily: language == "en" ? "'DM Sans', sans-serif;": "'Amiri', serif;",
+                backgroundColor: "primary",
             },
             error : {
                 backgroundColor: "#fa493c"

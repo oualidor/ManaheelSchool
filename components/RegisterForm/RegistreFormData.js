@@ -1,5 +1,20 @@
 import React from "react";
+import _Student from "../../src/Models/_Student";
+import {BsCloudLightningRain, BsCodeSquare, BsCpu, BsFillBadgeArFill, BsHeart, BsLightningCharge} from "react-icons/bs";
 
+const StepsValidator = {
+    NewUnknownForm: {
+        onSubmit: async () => {
+
+            return {finalResult: true, result: 'Unknown error occurred' }
+        }
+    },
+    NewStudentForm : {
+        onSubmit : _Student.create
+
+    }
+
+}
 const StepsInputs = {
     NewUnknownForm: {
         // type:
@@ -13,56 +28,62 @@ const StepsInputs = {
         //     }
     },
     NewStudentForm: {
-        fullName : {
-            ref: React.createRef(), validator : (value = this.ref.current.value)=>{
+        name : {
+            ref: React.createRef(), inputRef: React.createRef(),
+            validator : (value)=>{
                 if(value == ""){
                     return false;
                 }
                 return true
-            }
+            },
+            i: 2
+        },
+        sex : {
+            ref: React.createRef(), inputRef: React.createRef(),
+            validator : (value)=>{
+                if(value == -1){
+                    return false;
+                }
+                return true
+            },
+            nested: true
         },
         birthDate : {
-            ref: React.createRef(), validator : (value = this.ref.current.value)=>{
+            ref: React.createRef(), inputRef: React.createRef(), validator : (value)=>{
                 if(value == ""){
                     return false;
                 }
                 return true
-            }
-        },
-        mail : {
-            ref: React.createRef(), validator : (value = this.ref.current.value)=>{
-                if(value == ""){
-                    return false;
-                }
-                return true
-            }
+            },
+
         },
         phone : {
-            ref: React.createRef(), validator : (value = this.ref.current.value)=>{
-                if(value == ""){
+            ref: React.createRef(), inputRef: React.createRef(),
+            validator : (value)=>{
+                if(value.length !== 10){
                     return false;
                 }
                 return true
-            }
+            },     i: 2
         },
-        period : {
-            ref: React.createRef(), validator : (value = this.ref.current.value)=>{
-                if(value == ""){
-                    return false;
-                }
-                return true
-            }
-        },
+        // period : {
+        //     ref: React.createRef(), validator : (value)=>{
+        //         if(value == ""){
+        //             return false;
+        //         }
+        //         return true
+        //     }
+        // },
         level : {
-            ref: React.createRef(), validator : (value = this.ref.current.value)=>{
-                if(value == ""){
+            ref: React.createRef(), inputRef: React.createRef(),
+            validator : (value)=>{
+                if(value == -1){
                     return false;
                 }
                 return true
-            }
+            },
+            nested: true
         },
-
-
     },
     NewParentForm: {
         fullName : {
@@ -152,5 +173,60 @@ const Relations = [
 
 ]
 
-module.exports = {StepsInputs, Periods, Relations}
+
+const SexArray = [
+    {
+        label: 'دكر',
+        Id: 0,
+    },
+    {
+        label: 'أنثى',
+        Id: 1,
+    },
+
+];
+const Modules = [
+    {
+        name: 'الرياضيات',
+        icon: BsCodeSquare,
+    },
+    {
+        name: 'الفيزياء',
+        icon: BsCpu,
+    },
+    {
+        name: 'العلوم الطبيعية',
+        icon: BsCloudLightningRain,
+    },
+    {
+        name: 'العربية',
+        icon: BsFillBadgeArFill,
+    },
+    {
+        name: 'الانجليزية',
+        icon: BsHeart,
+    },
+    {
+        name: 'الفرنسية',
+        icon: BsHeart   ,
+    },
+    {
+        name: 'اجتماعيات',
+        icon: BsCodeSquare,
+    },
+    {
+        name: 'هندسة مدنية',
+        icon: BsCodeSquare,
+    },
+    {
+        name: 'هندسة كهريائية',
+        icon: BsLightningCharge,
+    },
+];
+const UserTypes = {
+    Student: 0,
+    Parent : 1
+}
+
+module.exports = {StepsValidator, StepsInputs, Periods, Relations, SexArray, Modules, UserTypes}
 
