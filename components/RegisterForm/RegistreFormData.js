@@ -7,10 +7,12 @@ const StepsValidator = {
         onSubmit: async () => {
 
             return {finalResult: true, result: 'Unknown error occurred' }
-        }
+        },
+        MultiStates : false
     },
     NewStudentForm : {
-        onSubmit : _Student.create
+        onSubmit : _Student.create,
+        MultiStates: true,
 
     }
 
@@ -172,8 +174,6 @@ const Relations = [
     }
 
 ]
-
-
 const SexArray = [
     {
         label: 'دكر',

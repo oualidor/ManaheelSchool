@@ -1,4 +1,4 @@
-import React, {forwardRef, useEffect, useState} from "react";
+import React, {forwardRef, useEffect, useRef, useState} from "react";
 import logo from '../../src/assets/Images/logo.png'
 import {
     Container,
@@ -46,6 +46,7 @@ import {useDispatch} from "react-redux";
 import {HideBackDrop, PushNotification} from "../../src/Apis/Redux/Actions/Types";
 import _Student from "../../src/Models/_Student";
 import _Parent from "../../src/Models/_Parent";
+import MultiStatesComponent from "../MultiStatesComponent/MultiStatesComponent";
 
 
 
@@ -69,6 +70,8 @@ const RegisterForm = () => {
     let dispatch = useDispatch()
     const StepsNames = ['NewUnknownForm', 'NewStudentForm', 'ModulesForm', 'NewParentForm']
     const [currentStep, setCurrentStep] = useState(0);
+    const [working, setWorking] = useState(false);
+    const [currentState, setCurrentState] = useState(1);
     const [previousStep, setPreviousStep] = useState(0);
     const [period, setPeriod] = useState(-1);
     const [level, setLevel] = useState(0);
@@ -77,8 +80,7 @@ const RegisterForm = () => {
         type: -1, parentRelation: -1, period: -1, level: 0, selectedModules: [], sex: -1,
     });
     const NextButton = React.createRef();
-
-
+    const ref = useRef(null);
 
 
     const onChange = (e)=>{
@@ -174,7 +176,8 @@ const RegisterForm = () => {
             </Box>
         )
     }
-    const ModulesForm = ({fullName}) => {
+
+    const ModulesForm = ({}) => {
 
         const [selectedModules, setSelectedModules] = useState(Array(Periods[period]['levels'][level]['modules'].length).fill(false));
         const [render, setRender] = useState(false);
@@ -206,7 +209,6 @@ const RegisterForm = () => {
         )
     }
 
-
     const NewUnknownForm = ({}) => {
 
         return (
@@ -222,33 +224,31 @@ const RegisterForm = () => {
                     gap: '50px 20px',
                     gridTemplateColumns: ['100%', '100%'],
                 }}>
+                    <Box sx={{display: 'flex', fontSize: 40, flexDirection: "row", alignItems: "center", justifyContent: "space-around"}}>
+                        <SelectButton
+                            onClick={()=>{
+                              setType(UserTypes.Student)
+                                newInfo.type = UserTypes.Student
+                            }}
+                            selectedValue={type}
+                            id={UserTypes.Student}
+                            Icon={BsFillPersonLinesFill} text={'تلميد'}></SelectButton>
+                        <SelectButton
 
-                        <Box sx={{display: 'flex', fontSize: 40, flexDirection: "row", alignItems: "center", justifyContent: "space-around"}}>
-                            <SelectButton
-                                onClick={()=>{
-                                  setType(UserTypes.Student)
-                                    newInfo.type = UserTypes.Student
-                                }}
-                                selectedValue={type}
-                                id={UserTypes.Student}
-                                Icon={BsFillPersonLinesFill} text={'تلميد'}></SelectButton>
-                            <SelectButton
-
-                                onClick={()=>{
-                                    setType(UserTypes.Parent)
-                                    newInfo.type = UserTypes.Parent
-                                }}
-                                selectedValue={type}
-                                id={UserTypes.Parent}
-                                Icon={BsFillPeopleFill} text={'ولي أمر'}></SelectButton>
-                        </Box>
-
-
+                            onClick={()=>{
+                                setType(UserTypes.Parent)
+                                newInfo.type = UserTypes.Parent
+                            }}
+                            selectedValue={type}
+                            id={UserTypes.Parent}
+                            Icon={BsFillPeopleFill} text={'ولي أمر'}></SelectButton>
+                    </Box>
                 </Grid>
             </>
 
         )
     }
+
     const NewStudentForm = ({fullName}) => {
         useEffect(() => {
 
@@ -257,125 +257,129 @@ const RegisterForm = () => {
             };
         }, [newInfo, ]);
         return (
-            <Box as={'form'}>
-                <Grid sx={{}} className={'line line3-7'}>
-                    <YitInput
-                        Icon={BsFillPersonFill}
-                        placeholder={'الاسم واللقب'}
-                        ref={{
-                            ref1 : StepsInputs.NewStudentForm.name.ref,
-                            ref2: StepsInputs.NewStudentForm.name.inputRef
-                        }}
 
-                        onChange={onChange} name={'studentName'}
-                        defaultValue={newInfo.studentName}
-                        errorMsg={'يجب أن تدخل اسمك الحقيقي'}
-                    />
-                    <YitInput
-                        Component={Select}
-                        Icon={BsGenderAmbiguous}
-                        ref={{
-                            ref1 : StepsInputs.NewStudentForm.sex.ref,
-                            ref2: StepsInputs.NewStudentForm.sex.inputRef
-                        }}
-                        onChange={onChange}  name={'sex'}
-                        arrow={<Box></Box>}
-                        sx={{  fontFamily: "'Amiri', serif;"}}
-                        errorMsg={'اختر الجنس'}
-                        defaultValue={newInfo.sex}>
-                        <option value={-1}>{'اختر من فضلك'}</option>
-                        {
-                            SexArray.map((item, index) =>{
-                                return <option value={item.Id}>{item.label}</option>
-                            })
-                        }
-                    </YitInput>
-                </Grid>
-                <Grid sx={{}} as="form" className={'line'}>
-                    <YitInput
-                        Icon={BsCalendarDate}
-                        ref={{
-                            ref1 : StepsInputs.NewStudentForm.birthDate.ref,
-                            ref2: StepsInputs.NewStudentForm.birthDate.inputRef
-                        }}
-                        onChange={(e)=>{
-                            newInfo.birthDate = e.target.value
-                            setNewInfo(newInfo)
-                        }}
-                        defaultValue={newInfo.birthDate}
-                        type={"date"}
-                        errorMsg={'اختر تاريخ الميلاد'}
-                    />
-                    <YitInput
-                        Icon={AiOutlinePhone}
-                        placeholder={'رقم الهاتف'}
-                        ref={{
-                            ref1 : StepsInputs.NewStudentForm.phone.ref,
-                            ref2: StepsInputs.NewStudentForm.phone.inputRef
-                        }}
-                        onChange={onChange} name={'phone'}
-                        type={"tel"} defaultValue={newInfo.phone}
-                        errorMsg={'ادخل رقم هاتف من 10 أرقام'}
-                    />
+                <Box as={'form'}>
+                    <Grid sx={{}} className={'line line3-7'}>
+                        <YitInput
+                            Icon={BsFillPersonFill}
+                            placeholder={'الاسم واللقب'}
+                            ref={{
+                                ref1 : StepsInputs.NewStudentForm.name.ref,
+                                ref2: StepsInputs.NewStudentForm.name.inputRef
+                            }}
 
-                </Grid>
-                <br/>
-                <Box sx={{display: 'flex', fontSize: 40, flexDirection: "row", alignItems: "center", justifyContent: "space-between"}}>
-                    <SelectButton
-                        onClick={()=>{
-                            setPeriod(0)
-                            newInfo.period = 0
-                        }}
-                        selectedValue={period}
-                        id={0}
-                        Icon={BsHouseDoorFill} text={'ابتدائئ'}></SelectButton>
-                    <SelectButton
+                            onChange={onChange} name={'studentName'}
+                            defaultValue={newInfo.studentName}
+                            errorMsg={'يجب أن تدخل اسمك الحقيقي'}
+                        />
+                        <YitInput
+                            Component={Select}
+                            Icon={BsGenderAmbiguous}
+                            ref={{
+                                ref1 : StepsInputs.NewStudentForm.sex.ref,
+                                ref2: StepsInputs.NewStudentForm.sex.inputRef
+                            }}
+                            onChange={onChange}  name={'sex'}
+                            arrow={<Box></Box>}
+                            sx={{  fontFamily: "'Amiri', serif;"}}
+                            errorMsg={'اختر الجنس'}
+                            defaultValue={newInfo.sex}>
+                            <option value={-1}>{'اختر من فضلك'}</option>
+                            {
+                                SexArray.map((item, index) =>{
+                                    return <option value={item.Id}>{item.label}</option>
+                                })
+                            }
+                        </YitInput>
+                    </Grid>
+                    <Grid sx={{}} as="form" className={'line'}>
+                        <YitInput
+                            Icon={BsCalendarDate}
+                            ref={{
+                                ref1 : StepsInputs.NewStudentForm.birthDate.ref,
+                                ref2: StepsInputs.NewStudentForm.birthDate.inputRef
+                            }}
+                            onChange={(e)=>{
+                                newInfo.birthDate = e.target.value
+                                setNewInfo(newInfo)
+                            }}
+                            defaultValue={newInfo.birthDate}
+                            type={"date"}
+                            errorMsg={'اختر تاريخ الميلاد'}
+                        />
+                        <YitInput
+                            Icon={AiOutlinePhone}
+                            placeholder={'رقم الهاتف'}
+                            ref={{
+                                ref1 : StepsInputs.NewStudentForm.phone.ref,
+                                ref2: StepsInputs.NewStudentForm.phone.inputRef
+                            }}
+                            onChange={onChange} name={'phone'}
+                            // type={"tel"} defaultValue={newInfo.phone}
+                            errorMsg={'ادخل رقم هاتف من 10 أرقام'}
+                        />
 
-                        onClick={()=>{
-                            setPeriod(1)
-                            newInfo.period = 1
-                        }}
-                        selectedValue={period}
-                        id={1}
-                        Icon={BsNewspaper} text={'متوسط'}></SelectButton>
-                    <SelectButton
-                        onClick={()=>{
-                            setPeriod(2)
-                            newInfo.period = 2
-                        }}
-                        selectedValue={period}
-                        id={2}
-                        Icon={BsFillPeopleFill} text={'ثانوي'}></SelectButton>
+                    </Grid>
+                    <br/>
+                    <Box sx={{display: 'flex', fontSize: 40, flexDirection: "row", alignItems: "center", justifyContent: "space-between"}}>
+                        <SelectButton
+                            onClick={()=>{
+                                setPeriod(0)
+                                newInfo.period = 0
+                            }}
+                            selectedValue={period}
+                            id={0}
+                            Icon={BsHouseDoorFill} text={'ابتدائئ'}></SelectButton>
+                        <SelectButton
+
+                            onClick={()=>{
+                                setPeriod(1)
+                                newInfo.period = 1
+                            }}
+                            selectedValue={period}
+                            id={1}
+                            Icon={BsNewspaper} text={'متوسط'}></SelectButton>
+                        <SelectButton
+                            onClick={()=>{
+                                setPeriod(2)
+                                newInfo.period = 2
+                            }}
+                            selectedValue={period}
+                            id={2}
+                            Icon={BsFillPeopleFill} text={'ثانوي'}></SelectButton>
+                    </Box>
+                    <br/>
+                    <Box>
+                        <YitInput
+                            Component={Select}
+                            Icon={BsTextCenter}
+                            placeholder={'رقم الهاتف'}
+                            ref={{
+                                ref1 : StepsInputs.NewStudentForm.level.ref,
+                                ref2: StepsInputs.NewStudentForm.level.inputRef
+                            }}
+                            onChange={(e)=>{
+                                setLevel(e.target.value)
+                                newInfo.level = e.target.value
+                            }} name={'level'}
+                            arrow={<Box></Box>}
+                            errorMsg={'اخترالمستوى الدراسي'}
+                            defaultValue={newInfo.level}>
+                            <option value={-1}>{'اختر من فضلك'}</option>
+                            {
+                                period !== -1 &&
+                                Periods[period]['levels'].map((item, index) =>{
+                                    return <option value={index}>{item.name}</option>
+                                })
+                            }
+                        </YitInput>
+                    </Box>
                 </Box>
-                <br/>
-                <Box>
-                    <YitInput
-                        Component={Select}
-                        Icon={BsTextCenter}
-                        placeholder={'رقم الهاتف'}
-                        ref={{
-                            ref1 : StepsInputs.NewStudentForm.level.ref,
-                            ref2: StepsInputs.NewStudentForm.level.inputRef
-                        }}
-                        onChange={(e)=>{
-                            setLevel(e.target.value)
-                            newInfo.level = e.target.value
-                        }} name={'level'}
-                        arrow={<Box></Box>}
-                        errorMsg={'اخترالمستوى الدراسي'}
-                        defaultValue={newInfo.level}>
-                        <option value={-1}>{'اختر من فضلك'}</option>
-                        {
-                            period !== -1 &&
-                            Periods[period]['levels'].map((item, index) =>{
-                                return <option value={index}>{item.name}</option>
-                            })
-                        }
-                    </YitInput>
-                </Box>
-            </Box>
+
+
         )
     }
+
     const NewParentForm = ({}) => {
         return (
             <>
@@ -460,8 +464,6 @@ const RegisterForm = () => {
             sex: newInfo.parentSex,
         }
 
-
-
         useEffect(() => {
              _Parent.create(ParentInfo).then(r=>{
                 if(r.finalResult === true){
@@ -541,27 +543,20 @@ const RegisterForm = () => {
                         <Text sx={{textAlign: "right", mr: '30px'}} as={'h2'}>
                             أطا كنت تواجه صعوبة في التسجيل يرجى الاتصال بالرقم 0550750576
                         </Text>
-
                     </Box>
-
                 )
                 break;
         }
-
     }
 
     const ValidateStep = (currentStep) => {
-        
         let valid = true
         let i=0
         for (let Input in StepsInputs[StepsNames[currentStep]]) {
-            console.log(i)
             const {ref, inputRef,  validator} = (StepsInputs[StepsNames[currentStep]][Input])
             let inputSelector = inputRef.current
             let errorTextSelector = ref.current
-
             if (!validator(inputSelector.value)){
-                alert(Input)
                 // errorSelector.style.display = 'flex'
                 valid = false
                 inputSelector.classList.add('BadEntry')
@@ -579,7 +574,7 @@ const RegisterForm = () => {
     }
 
     const SubmitStep = async (currentStep) => {
-        const {onSubmit} = StepsValidator[StepsNames[currentStep]]
+        const {onSubmit, MultiStates} = StepsValidator[StepsNames[currentStep]]
         let data  = {}
         switch (currentStep){
             case 0:
@@ -595,6 +590,8 @@ const RegisterForm = () => {
 
                 break;
         }
+
+
         let res = await onSubmit(data)
 
 
@@ -619,59 +616,67 @@ const RegisterForm = () => {
                 }, 1500)
             }
         })
-
-
         return false
     }
 
     const HandleNext = async (currentStep) => {
+        ref.current.setWorking(true)
         let valid =  ValidateStep(currentStep)
         if (valid) {
             SubmitStep(currentStep)
                 .then(res =>{
-                    if(res)
-                    switch (currentStep) {
-                        case 0:
-                            if (newInfo.type == UserTypes.Student) {
-                                newInfo.studentName = newInfo.preFullName
-                                setCurrentStep(1)
-                                setPreviousStep(0)
-                            }
-                            if (newInfo.type == UserTypes.Parent) {
-                                newInfo.parentFullName = newInfo.preFullName
-                                setCurrentStep(2)
-                                setPreviousStep(0)
-                            }
-                            break;
-                        case 1:
-                            setPreviousStep(1)
-                            setCurrentStep(11)
-                            break;
-                        case 11:
-                            if (newInfo.type == UserTypes.Student) {
-                                setCurrentStep(2)
-                                setPreviousStep(11)
-                            }
-                            if (newInfo.type == UserTypes.Parent) {
-                                setCurrentStep(10)
+                    if(res){
+                        switch (currentStep) {
+                            case 0:
+                                if (newInfo.type == UserTypes.Student) {
+                                    newInfo.studentName = newInfo.preFullName
+                                    setCurrentStep(1)
+                                    setPreviousStep(0)
+                                }
+                                if (newInfo.type == UserTypes.Parent) {
+                                    newInfo.parentFullName = newInfo.preFullName
+                                    setCurrentStep(2)
+                                    setPreviousStep(0)
+                                }
+                                break;
+                            case 1:
+                                setPreviousStep(1)
                                 setCurrentStep(11)
-                            }
-                            break;
-                        case 2:
-                            if (newInfo.type == UserTypes.Student) {
-                                setCurrentStep(10)
-                                setPreviousStep(2)
-                            }
-                            if (newInfo.type == UserTypes.Parent) {
-                                setCurrentStep(1)
-                                setPreviousStep(2)
-                                //go to resume
-                            }
-                    }
-                })
-                .catch()
-        }
+                                break;
+                            case 11:
+                                if (newInfo.type == UserTypes.Student) {
+                                    setCurrentStep(2)
+                                    setPreviousStep(11)
+                                }
+                                if (newInfo.type == UserTypes.Parent) {
+                                    setCurrentStep(10)
+                                    setCurrentStep(11)
+                                }
+                                break;
+                            case 2:
+                                if (newInfo.type == UserTypes.Student) {
+                                    setCurrentStep(10)
+                                    setPreviousStep(2)
+                                }
+                                if (newInfo.type == UserTypes.Parent) {
+                                    setCurrentStep(1)
+                                    setPreviousStep(2)
+                                    //go to resume
+                                }
+                        }
+                    }else {
 
+                        setCurrentState(1)
+                    }
+                    ref.current.setWorking(false)
+
+                })
+                .catch(()=>{
+                    ref.current.setWorking(false)
+                })
+        }else {
+            ref.current.setWorking(false)
+        }
     }
 
     const DrawSteps = (currentStep) =>{
@@ -695,25 +700,12 @@ const RegisterForm = () => {
     }
 
     useEffect(() => {
-        // let vh = window.innerHeight
-        // document.getElementById('Containerrrr').style.height = vh
-        // // Then we set the value in the --vh custom property to the root of the document
-        // // document.documentElement.style.setProperty('--vh', `${vh}px`);
-        //
-        // const onResize = (e)=>{
-        //     let vh = window.innerHeight
-        //     document.getElementById('Containerrrr').style.height = vh+'px'
-        // }
-        // window.addEventListener('resize',  onResize)
-        //
-        // return () => {
-        //     window.removeEventListener('resize', onResize)
-        // };
-    }, []);
+
+    }, [currentStep]);
 
     return (
         <Container sx={{mt: '15vh'}}>
-            <Box sx={MainStyle.Container} id={'Containerrrr'}>
+            <Box sx={MainStyle.Container} id={'Container'}>
                 <Box sx={MainStyle.TopBox}>
                     <AiOutlineMinus  size={40}></AiOutlineMinus>
                 </Box>
@@ -724,46 +716,58 @@ const RegisterForm = () => {
                         </Box>
                         <Image src={rr} sx={{height: '100%', width: '100%'}}></Image>
                     </Box>
-                    <Box sx={MainStyle.textConn} id={'ContentBox'}>
-                        <Box id={'formsBox'}>
-                            {
-                                DrawSteps(currentStep)
-                            }
-                        </Box>
-                        <br/>
-                        { <Box id={'actionsBox'} sx={MainStyle.actionsBox}>
-                                {currentStep !== 0 &&     <Button
-                                        type={"button"} onClick={()=>{
-                                        setPreviousStep(currentStep)
-                                        setCurrentStep(previousStep)
+                    <MultiStatesComponent state={currentState} ref={ref} working={working}>
+                        <Box sx={MainStyle.textConn} id={'ContentBox'}>
 
-                                    }}>
-                                        <AiOutlineDoubleRight></AiOutlineDoubleRight>
-                                        السابق
+                            <Box id={'formsBox'}>
 
-                                    </Button>
-                                }
-                                <Button
-                                    ref={NextButton} type={"button"}  onClick={()=>{HandleNext(currentStep)}}>
+                                    {
+                                        DrawSteps(currentStep)
+                                    }
 
-                                    {NEXT}
-                                    <AiOutlineDoubleLeft></AiOutlineDoubleLeft>
-                                </Button>
-                                {
-                                    currentStep == 10 &&
+                            </Box>
+
+                            <br/>
+                            { <Box id={'actionsBox'} sx={{}}>
+                                    {currentStep !== 0 &&     <Button
+                                            type={"button"} onClick={()=>{
+                                            setPreviousStep(currentStep)
+                                            setCurrentStep(previousStep)
+
+                                        }}>
+                                            <AiOutlineDoubleRight></AiOutlineDoubleRight>
+                                            السابق
+
+                                        </Button>
+                                    }
                                     <Button
-                                        ref={NextButton} type={"button"}   onClick={()=>{HandleNext(currentStep)}}>
-                                        {SAVE}
-                                    </Button>
-                                }
-                        </Box>}
+                                        ref={NextButton} type={"button"}  onClick={()=>{HandleNext(currentStep)}}>
 
-                    </Box>
+                                        {NEXT}
+                                        <AiOutlineDoubleLeft></AiOutlineDoubleLeft>
+                                    </Button>
+                                    {
+                                        currentStep == 10 &&
+                                        <Button
+                                            ref={NextButton} type={"button"}   onClick={()=>{HandleNext(currentStep)}}>
+                                            {SAVE}
+                                        </Button>
+                                    }
+                                 <Button
+                                    ref={NextButton} type={"button"}   onClick={()=>{
+                                    setCurrentStepp(1)
+                                    console.log(ref.current)
+                                     ref.current.childFunction1()
+
+                                 }}>
+                                    Test
+                                </Button>
+                            </Box>}
+                        </Box>
+                    </MultiStatesComponent>
                 </Box>
             </Box>
         </Container>
-
-
     )
 }
 

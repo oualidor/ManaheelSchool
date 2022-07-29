@@ -14,11 +14,20 @@ export default function Home(props) {
     const data = {
         phone : '0550750576'
     }
-    useEffect(()=>{
-        // document.body.dir = "rtl"
-        // dispatch({type: MountBackDrop, Component: <RegisterForm/>})
-    })
+    useEffect(() => {
+        console.log('1')
+        return () => {
 
+        };
+    }, []);
+
+
+    useEffect(() => {
+        console.log('2')
+        return () => {
+
+        };
+    }, []);
   return (
       <>
           <Landing></Landing>

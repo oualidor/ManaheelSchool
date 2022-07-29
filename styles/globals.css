@@ -36,13 +36,19 @@ a {
   height: 100%;
   width: 100%;
   color: white;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.6);
   position: absolute;
-
+  z-index: 9999;
 }
+
 .BadEntry{
   border: 1px solid red;
   color: red
+}
+
+.centerFlex{
+  display: flex;
+  align-items: center; justify-content: center;
 }
 
 
