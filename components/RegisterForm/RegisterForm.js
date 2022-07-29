@@ -707,8 +707,39 @@ const RegisterForm = () => {
     return (
         <Container sx={{mt: '15vh'}}>
             <Box sx={MainStyle.Container} id={'Container'}>
-                <Box sx={MainStyle.TopBox}>
-                    <AiOutlineMinus  size={40}></AiOutlineMinus>
+                <Box sx={MainStyle.TopBox} id={'TopBox'}>
+                    {/*<AiOutlineMinus*/}
+                    {/*    onDrop={(e)=>{*/}
+                    {/*        console.log('drop')*/}
+                    {/*    }}*/}
+                    {/*    onDragStart={(event)=>{*/}
+                    {/*        console.log('start')*/}
+                    {/*    }}*/}
+                    {/*    onDrag={(event)=>{*/}
+                    {/*        let selector = document.getElementById('TopBox')*/}
+
+                    {/*    }}*/}
+                    {/*    draggable={true}*/}
+                    {/*    onsize={40}*/}
+                    {/*    draggable="true"*/}
+                    {/*    onClick={()=>{*/}
+                    {/*        console.log('hihi')*/}
+                    {/*    }}*/}
+                    {/*/>*/}
+
+                    <p
+                        onDrop={(e)=>{
+                            console.log('drop')
+                        }}
+                        onDragStart={(event)=>{
+                            dispatch({type: HideBackDrop})
+
+                        }}
+                        onDrag={(event)=>{
+                            let selector = document.getElementById('TopBox')
+
+                        }}
+                        draggable={true} >----</p>
                 </Box>
                 <Box sx={MainStyle.Content}>
                     <Box sx={MainStyle.imageConn}>
