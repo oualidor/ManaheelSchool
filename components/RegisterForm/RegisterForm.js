@@ -272,6 +272,7 @@ const RegisterForm = () => {
                             defaultValue={newInfo.studentName}
                             errorMsg={'يجب أن تدخل اسمك الحقيقي'}
                         />
+
                         <YitInput
                             Component={Select}
                             Icon={BsGenderAmbiguous}
@@ -711,22 +712,20 @@ const RegisterForm = () => {
                 </Box>
                 <Box sx={MainStyle.Content}>
                     <Box sx={MainStyle.imageConn}>
-                        <Box className={'backdrop'}>
-                            <Image src={logo}></Image>
+                        <Box className={'backdrop FRCC'}>
+                            <Image src={logo} sx={{height: '100%', width: '100%'}}></Image>
                         </Box>
                         <Image src={rr} sx={{height: '100%', width: '100%'}}></Image>
                     </Box>
-                    <MultiStatesComponent state={currentState} ref={ref} working={working}>
-                        <Box sx={MainStyle.textConn} id={'ContentBox'}>
+                    <MultiStatesComponent state={currentState} ref={ref} working={working} sx={MainStyle.textConn}>
+                        <Box  sx={MainStyle.textConn} id={'ContentBox'}>
 
                             <Box id={'formsBox'}>
-
                                     {
                                         DrawSteps(currentStep)
                                     }
 
                             </Box>
-
                             <br/>
                             { <Box id={'actionsBox'} sx={{}}>
                                     {currentStep !== 0 &&     <Button

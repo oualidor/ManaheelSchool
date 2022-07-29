@@ -4,7 +4,7 @@ import {AiFillCloseCircle} from "react-icons/ai";
 import React, {forwardRef, useEffect, useImperativeHandle, useState} from "react";
 
 
-const MultiStatesComponent = forwardRef(({state,  children}, ref)=>{
+const MultiStatesComponent = forwardRef(({state, props,  children, }, ref)=>{
     const [working, setWorking] = useState(false);
     useImperativeHandle(ref, () => ({
         setWorking(v){
@@ -83,9 +83,9 @@ const MultiStatesComponent = forwardRef(({state,  children}, ref)=>{
     // }
 
     return(
-        <Box ref={ref} sx={{position: "relative"}}>
+        <Box ref={ref} {...props}  >
             {
-                working && <Box className={'backdrop centerFlex'} sx={{}}><Spinner size={150}/></Box>
+                working && <Box className={'backdrop FRCC'} sx={{}}><Spinner size={150}/></Box>
             }
 
             {children}

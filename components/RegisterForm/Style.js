@@ -14,18 +14,16 @@ const Style = {
     Main: {
 
         Container: {
-            borderTopRightRadius: 40,
-            borderTopLeftRadius: 40,
+            borderTopRightRadius: 40, borderTopLeftRadius: 40,
             bottom: 0, left: 0, top: '15vh',
             position: ['fixed', 'fixed', 'static', 'static', 'static', 'static', 'static'],
             height: ['85vh', '85vh', '85vh', '85vh', '75vh', '75vh', '75vh'],
-            p: 0,
             width: "100%",
-            background: 'white',
-            display: 'flex', flexDirection: 'column',
-            alignItems: 'center', justifyContent: "space-between"
+            backgroundColor: 'white',
         },
+
         TopBox: {
+            mr: '47%',
             height: '5%',
             display: ['block', 'none'], backgroundColor: ''
         },
@@ -33,11 +31,12 @@ const Style = {
             position: 'relative',
             gridTemplateColumns: [
                 '100%', '100%', '100%', '100%',
-                '40% 60%', '50% 50%', '50% 50%'],
+                '40% 60%', '50% 50%', '50% 50%'
+            ],
 
             display: "grid",
             background: '', height: ['90%', '90%', '90%', '100%', '100%', '100%', '100%'],
-            width: "100%",
+            width: "100%", overflow: 'auto',
         },
 
         imageConn : {
@@ -48,7 +47,6 @@ const Style = {
         textConn : {
             position: 'relative',
             display: "flex", flexDirection: 'column', justifyContent: 'space-between',
-            overflow: 'auto',
             backgroundColor: '',
             height: '100%', width: '100%',  p:[4, 2, 2, 2, 6, 20, '8%'],
             '.line': {
@@ -69,7 +67,7 @@ const Style = {
             },
             '#formsBox':{
                 backgroundColor: '',
-                  mb: '2%'
+                mb: '2%'
             },
             '#actionsBox': {
 

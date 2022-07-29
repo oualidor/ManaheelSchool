@@ -46,10 +46,16 @@ a {
   color: red
 }
 
-.centerFlex{
+.FRCC{
   display: flex;
   align-items: center; justify-content: center;
 }
+
+.FCCC{
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+}
+
 
 
 .success-animation {
