@@ -8,22 +8,17 @@ import {MountBackDrop} from "../src/Apis/Redux/Actions/Types";
 import RegisterForm from "../components/RegisterForm/RegisterForm";
 import _Student from "../src/Models/_Student";
 
+
 export default function Home(props) {
     let dispatch =  useDispatch()
 
     const data = {
         phone : '0550750576'
     }
-    useEffect(() => {
-        console.log('1')
-        return () => {
-
-        };
-    }, []);
 
 
     useEffect(() => {
-        console.log('2')
+        console.log(process.env.NEXT_PUBLIC_SERVER)
         return () => {
 
         };

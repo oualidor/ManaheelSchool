@@ -83,9 +83,9 @@ const MultiStatesComponent = forwardRef(({state, props,  children, }, ref)=>{
     // }
 
     return(
-        <Box ref={ref} {...props}  >
+        <Box ref={ref} {...props}  sx={{position: "relative"}}>
             {
-                working && <Box className={'backdrop FRCC'} sx={{}}><Spinner size={150}/></Box>
+                working && <Box className={'backdrop FRCC'} sx={{}}><Spinner color={'white'} size={150}/></Box>
             }
 
             {children}

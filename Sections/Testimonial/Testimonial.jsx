@@ -4,6 +4,7 @@ import SectionHeader from "../../components/section-header";
 import React, {useState} from "react";
 import Carousel from "react-multi-carousel";
 import Im from "../../src/assets/Images/2.jpg";
+import unknowFemaleTeacher from "../../src/assets/Images/unknowFemaleTeacher.png";
 import Style from './Style'
 import {motion} from 'framer-motion'
 import {IoIosArrowRoundBack, IoIosArrowRoundForward} from "react-icons/io";
@@ -14,11 +15,18 @@ const data = [
         title: 'استادة التعيلم العالي',
         text: 'شكرا لكم ،على كل ماقدمتموه لابنائكم يوسف وفاطمة الزهراء، رغم صعوبة التجربة\n',
 
-        image: Im
+        image: unknowFemaleTeacher
     },
     {
         title: 'استادة التعيلم العالي',
         name: 'أيهاب طيبي',
+        text: 'شكرا لكم ،على كل ماقدمتموه لابنائكم يوسف وفاطمة الزهراء، رغم صعوبة التجربة\n',
+
+        image: Im
+    },
+    {
+        title: 'موظف',
+        name: 'بوطالب عبد القادر',
         text: 'شكرا لكم ،على كل ماقدمتموه لابنائكم يوسف وفاطمة الزهراء، رغم صعوبة التجربة\n',
 
         image: Im
@@ -86,7 +94,7 @@ export default function Testimonial() {
                     />
                 </Box>
 
-                <ComponentSlider autoPlay={true}>
+                <ComponentSlider autoPlay={false}>
 
                     {
                         data.map((entry, i)=>{

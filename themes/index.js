@@ -338,6 +338,20 @@ export default function createTheme(language) {
                     mr: 2,
                 },
             },
+            borderOnly: {
+                borderRadius: '45px',
+                fontWeight: 'bold',
+                color: 'white',
+                border: '2px solid white',
+                bg: 'transparent',
+                cursor: 'pointer',
+                transition: '500ms',
+
+                outline: 'none',
+                '&:hover': {
+                    bg: 'white',  color: 'primary',
+                },
+            },
             tabsButton: {
                 fontWeight: 'bold',
                 color: 'white',

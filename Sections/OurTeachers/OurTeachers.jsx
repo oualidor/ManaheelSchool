@@ -4,6 +4,7 @@ import PostThumb1 from '../../src/assets/Images/1.jpg';
 import PostThumb2 from '../../src/assets/Images/2.jpg';
 import PostThumb3 from '../../src/assets/Images/3.jpg';
 import youcef from '../../src/assets/Images/youcef.jpg';
+import unknowFemaleTeacher from '../../src/assets/Images/unknowFemaleTeacher.png';
 import ButtonGroup from "../../components/button-group";
 import PostCard from "../../components/post-card";
 import SectionHeader from "../../components/section-header";
@@ -18,6 +19,16 @@ const data = [
         authorName: 'رياضيات',
         date: 'Oct 20, 2020',
     },
+
+    {
+        id: 3,
+        imgSrc: unknowFemaleTeacher,
+        altText: 'Startup',
+        postLink: '#',
+        title: 'الأستادة دباس وسام',
+        authorName: 'انجليزية',
+        date: 'Oct 20, 2020',
+    },
     {
         id: 2,
         imgSrc: PostThumb2,
@@ -28,17 +39,8 @@ const data = [
         date: 'Oct 20, 2020',
     },
     {
-        id: 3,
-        imgSrc: PostThumb3,
-        altText: 'Startup',
-        postLink: '#',
-        title: 'الأستادة دباس وسام',
-        authorName: 'انجليزية',
-        date: 'Oct 20, 2020',
-    },
-    {
         id: 4,
-        imgSrc: PostThumb2,
+        imgSrc: unknowFemaleTeacher,
         altText: 'Creative',
         postLink: '#',
         title: 'الأستادة قدوري أمينة',
@@ -47,7 +49,7 @@ const data = [
     },
     {
         id: 4,
-        imgSrc: PostThumb2,
+        imgSrc: unknowFemaleTeacher,
         altText: 'Creative',
         postLink: '#',
         title: 'الأستادة قدوري أمينة',

@@ -63,6 +63,14 @@ export default function Header({ className }) {
   const [openMenu, setOpenMenu] = useState(false)
   let HeaderData = [
     {
+      path: '/Portfolio',
+      label: ' ',
+    },
+    {
+      path: '/Portfolio',
+      label: ' ',
+    },
+    {
       path: '/',
       label: 'الرئيسية',
     },
@@ -74,6 +82,10 @@ export default function Header({ className }) {
     {
       path: '/Portfolio',
       label: 'فضاء الأولياء',
+    },
+    {
+      path: '/Portfolio',
+      label: 'اتصل بنا  ',
     },
   ]
 
@@ -178,6 +190,14 @@ export default function Header({ className }) {
                 </span>
 
             ))}
+
+            <Button variant={className == "sticky" ? 'primary': 'borderOnly'}>
+              <NextLink
+                  href={'/'}
+              >
+                <Text sx={styles.link}>{'تسجيل الدخول'}</Text>
+              </NextLink>
+            </Button>
           </Box>
         </Container>
       </Box>

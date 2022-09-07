@@ -14,6 +14,12 @@ const StepsValidator = {
         onSubmit : _Student.create,
         MultiStates: true,
 
+    },
+    ModulesForm:{
+        onSubmit: async () => {
+            alert('hihi')
+            return {finalResult: true, result: 'Done' }
+        },
     }
 
 }
@@ -76,7 +82,7 @@ const StepsInputs = {
         //         return true
         //     }
         // },
-        level : {
+        currentLevel : {
             ref: React.createRef(), inputRef: React.createRef(),
             validator : (value)=>{
                 if(value == -1){
@@ -88,7 +94,7 @@ const StepsInputs = {
         },
     },
     NewParentForm: {
-        fullName : {
+        name : {
             ref: React.createRef(), validator : (value = this.ref.current.value)=>{
                 if(value == ""){
                     return false;
@@ -123,35 +129,38 @@ const StepsInputs = {
 
 
     },
+    ModulesForm:{
+
+    }
 
 }
 const Periods = [
     {
         name : 'الابتدائي',
         levels :  [
-            { name: 'أولى', modules : [0, 3]},
-            { name:'ثانية', modules : [0, 3]},
-            { name:'ثالث', modules : [0, ,3, 5]},
-            { name:'رابعة', modules : [0, 3, 5]},
-            { name:'الخامسة', modules : [0, 3, 5]},
+            { id: 0, name: 'أولى', modules : [0, 3]},
+            { id: 1, name:'ثانية', modules : [0, 3]},
+            { id: 2, name:'ثالث', modules : [0, ,3, 5]},
+            { id: 3, name:'رابعة', modules : [0, 3, 5]},
+            { id: 4, name:'الخامسة', modules : [0, 3, 5]},
         ]
     },
     {
         name : 'المتوسط',
         levels :  [
-            { name: 'أولى', modules :  [0, 1, 2, 3, 4, 5, 6]},
-            { name:'ثانية', modules : [0, 1, 2, 3, 4, 5, 6]},
-            { name:'ثالث', modules :  [0, 1, 2, 3, 4, 5, 6]},
-            { name:'رابعة', modules :  [0, 1, 2, 3, 4, 5, 6]}
+            { id: 10,  name: 'أولى', modules :  [0, 1, 2, 3, 4, 5, 6]},
+            { id: 11,  name:'ثانية', modules : [0, 1, 2, 3, 4, 5, 6]},
+            { id: 12,  name:'ثالث', modules :  [0, 1, 2, 3, 4, 5, 6]},
+            { id: 13,  name:'رابعة', modules :  [0, 1, 2, 3, 4, 5, 6]}
         ]
     },
     {
         name : 'الثانوي',
         levels :  [
-            { name: 'أولى علمي', modules : [0, 1, 2, 3, 4, 5, 6]},
-            { name: 'أولى أدبي', modules : [0, 1, 2, 3, 4, 5, 6]},
-            { name:'ثانية علوم تجريبة', modules : [0, 1, 2, 3, 4, 5, 6]},
-            { name:'ثانية تفني رياضي', modules : [0, 1, 2, 3, 4, 5, 6, 7, 8]},
+            { id: 21, name: 'أولى علمي', modules : [0, 1, 2, 3, 4, 5, 6]},
+            { id: 22, name: 'أولى أدبي', modules : [0, 1, 2, 3, 4, 5, 6]},
+            { id: 31, name:'ثانية علوم تجريبة', modules : [0, 1, 2, 3, 4, 5, 6]},
+            { id: 32, name:'ثانية تفني رياضي', modules : [0, 1, 2, 3, 4, 5, 6, 7, 8]},
         ]
     }
 ]

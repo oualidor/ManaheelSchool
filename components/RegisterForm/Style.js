@@ -35,7 +35,7 @@ const Style = {
             ],
 
             display: "grid",
-            background: '', height: ['90%', '90%', '90%', '100%', '100%', '100%', '100%'],
+            background: '', height: ['100%', '100%', '100%', '100%', '100%', '100%', '100%'],
             width: "100%", overflow: 'auto',
         },
 

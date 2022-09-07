@@ -36,7 +36,7 @@ a {
   height: 100%;
   width: 100%;
   color: white;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.7);
   position: absolute;
   z-index: 9999;
 }
@@ -65,11 +65,9 @@ a {
   justify-content: space-around;
   justify-items: center;
   align-content: space-around;
-
 }
 
 .checkmark {
-
   border-radius: 50%;
   display: block;
   stroke-width: 2;
@@ -79,6 +77,8 @@ a {
   animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
   margin: 0 auto;
 }
+
+
 .checkmark__circle {
   stroke-dasharray: 166;
   stroke-dashoffset: 166;

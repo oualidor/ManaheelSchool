@@ -47,6 +47,9 @@ import {HideBackDrop, PushNotification} from "../../src/Apis/Redux/Actions/Types
 import _Student from "../../src/Models/_Student";
 import _Parent from "../../src/Models/_Parent";
 import MultiStatesComponent from "../MultiStatesComponent/MultiStatesComponent";
+import YitInput from "../YitInput";
+import SelectButton from "../SelectButton";
+import ModuleTag from "../ModuleTag";
 
 
 
@@ -54,17 +57,6 @@ import MultiStatesComponent from "../MultiStatesComponent/MultiStatesComponent";
 
 const NEXT = "التالي"
 const SAVE = "تسجيل"
-
-
-function getAge(dateString) {
-    var today = new Date();
-    var age = today.getFullYear() - dateString.getFullYear();
-    var m = today.getMonth() - dateString.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < dateString.getDate())) {
-        age--;
-    }
-    return age;
-}
 const MainStyle = Style.Main
 const RegisterForm = () => {
     let dispatch = useDispatch()
@@ -90,96 +82,11 @@ const RegisterForm = () => {
         }, 100)
 
     }
-    const InfoTag = ({title, value}) => {
-        useEffect(() => {
-
-            return () => {
-
-            };
-        }, []);
-
-        return (
-            <Flex sx={{alignItems: "center"}}>
-                <Text variant={'title'} sx={{mx:1, fontSize: 6, color: 'primary'}}>{title}:</Text>
-                <Text variant={'title'}>{value}</Text>
-            </Flex>
-        )
-    }
-
-    const SelectButton = ({Icon, text, id,  selectedValue, ...props }) => {
-
-        return(
-
-            <Box {...props} sx={{display: 'flex', justifyContent: "center", alignItems: "center",
-                cursor: "pointer",
-                fontSize: [20, 30], width: "30%", borderRadius: 20,
-                flexDirection: "column", p: 3,
-                color: id == selectedValue ? 'white': 'primary',
-                backgroundColor: id == selectedValue ? 'primary': 'white',
-                border: '1px solid', borderColor: 'primary'}}>
-                <Icon size={35}></Icon>
-                <Text>{text}</Text>
-            </Box>
-
-
-        )
-    }
-
-    const YitInput = forwardRef(({Component,   Icon, errorMsg,  ...props }, ref) => {
-        const { ref1, ref2 } = ref;
-        return(
-            <Box sx={{position: "relative"}} >
-                <Box
-
-                    sx={
-                    {
-                        p: 2,
-                        display: "flex", flexDirection: 'column', justifyContent: 'center',
-                        color: 'white',
-                        position: "absolute", top: '0', right: '0%', backgroundColor: 'primary', height: '100%',
-                        borderTopRightRadius: 15, borderBottomRightRadius: 15,}}
-                >
-                    <Icon size={30}></Icon>
-
-                </Box>
-                <Box
-
-                    sx={
-                        {
-
-                            p: 2,
-                            display: 'flex', flexDirection: 'column', justifyContent: 'center',
-                            color: 'red',
-                            position: "absolute", top: '80%', right: '0%',  height: '100%',
-                            borderTopRightRadius: 15, borderBottomRightRadius: 15,}}
-                >
-
-                    <Text  ref={ref1} sx={{display: "none",}}>{errorMsg}</Text>
-                </Box>
-
-                { Component == undefined ? <Input ref={ref2} {...props}></Input>: <Component ref={ref2} {...props}></Component>}
-            </Box>
-        )
-    })
-
-    const ModuleTag = ({Icon, text, id,  selected, ...props }) => {
-        return(
-            <Box {...props} sx={{display: 'flex', justifyContent: "space-around", alignItems: "center",
-                cursor: "pointer",
-                fontSize: [20, 20], width: "45%", borderRadius: 20, maxWidth: '160px',
-                flexDirection: "row", p: 2, mb: 4, ml: '10px',
-                color: selected ? 'white': 'primary',
-                backgroundColor: selected ? 'primary': 'white',
-                border: '1px solid', borderColor: 'primary'}}>
-                <Icon size={20} style={{marginLeft: '5px'}}></Icon>
-                <Text>{text}</Text>
-            </Box>
-        )
-    }
 
     const ModulesForm = ({}) => {
 
-        const [selectedModules, setSelectedModules] = useState(Array(Periods[period]['levels'][level]['modules'].length).fill(false));
+        const modules = Periods[period]['levels'].filter(({id}) =>{return id == level})[0]['modules']
+        const [selectedModules, setSelectedModules] = useState(Array(modules.length).fill(false));
         const [render, setRender] = useState(false);
         useEffect(() => {
 
@@ -193,7 +100,7 @@ const RegisterForm = () => {
                 display: 'flex', flexDirection: "row", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap",
                 fontSize: 40,
             }}>
-                { Periods[period]['levels'][level]['modules'].map((name, index) => (
+                { modules.map((name, index) => (
                     <ModuleTag
                         onClick={()=>{
                             selectedModules[index] = !selectedModules[index]
@@ -214,10 +121,9 @@ const RegisterForm = () => {
         return (
             <>
                 <ul>
-                    <li>
-                        <Text as={'h2'} sx={{fontSize: [6]}}>تلتزم مدرسة المناهل يالحفاط على سرية المعلومات و عدم مشاركتها</Text></li>
-                        <li><Text as={'h2'} sx={{fontSize: [6]}}>يتم نسجيل معلومات و عنوان الجهاظ المستخدم لملأ منودج التسجيل</Text></li>
-                        <li><Text as={'h2'} sx={{fontSize: [6]}}>ادا واجهتم صعوبة في التسجبل، يرجي الاتصال بتا و سيقوم أخد الأعوان يالتسجيل بدلا عنكم</Text></li>
+                    <li><Text as={'h2'} sx={{fontSize: [6]}}>تلتزم مدرسة المناهل يالحفاط على سرية المعلومات و عدم مشاركتها</Text></li>
+                    <li><Text as={'h2'} sx={{fontSize: [6]}}>يتم نسجيل معلومات و عنوان الجهاظ المستخدم لملأ منودج التسجيل</Text></li>
+                    <li><Text as={'h2'} sx={{fontSize: [6]}}>ادا واجهتم صعوبة في التسجبل، يرجي الاتصال بتا و سيقوم أخد الأعوان يالتسجيل بدلا عنكم</Text></li>
                 </ul>
                 <br/>
                 <Grid sx={{
@@ -267,7 +173,6 @@ const RegisterForm = () => {
                                 ref1 : StepsInputs.NewStudentForm.name.ref,
                                 ref2: StepsInputs.NewStudentForm.name.inputRef
                             }}
-
                             onChange={onChange} name={'studentName'}
                             defaultValue={newInfo.studentName}
                             errorMsg={'يجب أن تدخل اسمك الحقيقي'}
@@ -315,6 +220,7 @@ const RegisterForm = () => {
                                 ref1 : StepsInputs.NewStudentForm.phone.ref,
                                 ref2: StepsInputs.NewStudentForm.phone.inputRef
                             }}
+                            defaultValue={newInfo.phone}
                             onChange={onChange} name={'phone'}
                             // type={"tel"} defaultValue={newInfo.phone}
                             errorMsg={'ادخل رقم هاتف من 10 أرقام'}
@@ -354,10 +260,9 @@ const RegisterForm = () => {
                         <YitInput
                             Component={Select}
                             Icon={BsTextCenter}
-                            placeholder={'رقم الهاتف'}
                             ref={{
-                                ref1 : StepsInputs.NewStudentForm.level.ref,
-                                ref2: StepsInputs.NewStudentForm.level.inputRef
+                                ref1 : StepsInputs.NewStudentForm.currentLevel.ref,
+                                ref2: StepsInputs.NewStudentForm.currentLevel.inputRef
                             }}
                             onChange={(e)=>{
                                 setLevel(e.target.value)
@@ -370,7 +275,7 @@ const RegisterForm = () => {
                             {
                                 period !== -1 &&
                                 Periods[period]['levels'].map((item, index) =>{
-                                    return <option value={index}>{item.name}</option>
+                                    return <option value={item.id}>{item.name}</option>
                                 })
                             }
                         </YitInput>
@@ -389,12 +294,19 @@ const RegisterForm = () => {
                     <YitInput
                         Icon={BsFillPersonFill}
                         placeholder={'الاسم واللقب'}
-                        ref={StepsInputs.NewParentForm.fullName.ref}
+                        ref={{
+                            ref1 : StepsInputs.NewParentForm.name.ref,
+                            ref2: StepsInputs.NewStudentForm.name.inputRef
+                        }}
                         onChange={onChange} name={'parentFullName'}
                         sx={{  fontFamily: "'Amiri', serif;"}}
                     />
 
                     <YitInput
+                        ref={{
+                            ref1 : StepsInputs.NewParentForm.sex.ref,
+                            ref2: StepsInputs.NewStudentForm.sex.inputRef
+                        }}
                         Component={Select}
                         Icon={BsGenderAmbiguous}
                         onChange={onChange}  name={'parentSex'}
@@ -413,7 +325,10 @@ const RegisterForm = () => {
                     <YitInput
                         Component={Select}
                         Icon={BsFillPersonFill}
-                        ref={StepsInputs.NewParentForm.relation.ref}
+                        ref={{
+                            ref1 : StepsInputs.NewParentForm.fullName.ref,
+                            ref2: StepsInputs.NewStudentForm.fullName.inputRef
+                        }}
                         onChange={onChange} name={'parentRelation'}
                         arrow={<Box></Box>}
                         sx={{  fontFamily: "'Amiri', serif;"}}
@@ -429,7 +344,10 @@ const RegisterForm = () => {
                     <YitInput
                         Icon={AiOutlinePhone}
                         placeholder={'رقم الهاتف'}
-                        ref={StepsInputs.NewParentForm.phone.ref}
+                        ref={{
+                            ref1 : StepsInputs.NewParentForm.fullName.ref,
+                            ref2: StepsInputs.NewStudentForm.fullName.inputRef
+                        }}
                         onChange={onChange} name={'parentPhone'}
                         type={"number"} defaultValue={newInfo.parentPhone}
                         sx={{  fontFamily: "'Amiri', serif;"}}
@@ -437,7 +355,10 @@ const RegisterForm = () => {
                     <YitInput
                         Icon={AiOutlineMail}
                         placeholder={'البريد الإكتروني'}
-                        ref={StepsInputs.NewParentForm.mail.ref}
+                        ref={{
+                            ref1 : StepsInputs.NewParentForm.mail.ref,
+                            ref2: StepsInputs.NewStudentForm.mail.inputRef
+                        }}
                         onChange={onChange} name={'parentMail'}
                         defaultValue={newInfo.parentMail}
                         sx={{  fontFamily: "'Amiri', serif;"}}
@@ -575,6 +496,7 @@ const RegisterForm = () => {
     }
 
     const SubmitStep = async (currentStep) => {
+        alert(222222)
         const {onSubmit, MultiStates} = StepsValidator[StepsNames[currentStep]]
         let data  = {}
         switch (currentStep){
@@ -587,7 +509,9 @@ const RegisterForm = () => {
                     phone : newInfo.phone,
                     birthDate: newInfo.birthDate,
                     sex: newInfo.sex,
+                    currentLevel: newInfo.level,
                 }
+                alert(JSON.stringify(data))
 
                 break;
         }
@@ -620,6 +544,37 @@ const RegisterForm = () => {
         return false
     }
 
+    const ChangeStep = ()=>{
+        switch (currentStep) {
+            case 0:
+                if (newInfo.type == UserTypes.Student) {
+                    newInfo.studentName = newInfo.preFullName
+                    setCurrentStep(1)
+                    setPreviousStep(0)
+                }
+                if (newInfo.type == UserTypes.Parent) {
+                    newInfo.parentFullName = newInfo.preFullName
+                    setCurrentStep(4)
+                    setPreviousStep(0)
+                }
+                break;
+            case 1:
+                setPreviousStep(1)
+                setCurrentStep(2)
+                break;
+
+            case 2:
+                if (newInfo.type == UserTypes.Student) {
+                    setCurrentStep(3)
+                    setPreviousStep(2)
+                }
+                if (newInfo.type == UserTypes.Parent) {
+                    setCurrentStep(4)
+                    setCurrentStep(2)
+                }
+                break;
+        }
+    }
     const HandleNext = async (currentStep) => {
         ref.current.setWorking(true)
         let valid =  ValidateStep(currentStep)
@@ -627,44 +582,7 @@ const RegisterForm = () => {
             SubmitStep(currentStep)
                 .then(res =>{
                     if(res){
-                        switch (currentStep) {
-                            case 0:
-                                if (newInfo.type == UserTypes.Student) {
-                                    newInfo.studentName = newInfo.preFullName
-                                    setCurrentStep(1)
-                                    setPreviousStep(0)
-                                }
-                                if (newInfo.type == UserTypes.Parent) {
-                                    newInfo.parentFullName = newInfo.preFullName
-                                    setCurrentStep(2)
-                                    setPreviousStep(0)
-                                }
-                                break;
-                            case 1:
-                                setPreviousStep(1)
-                                setCurrentStep(11)
-                                break;
-                            case 11:
-                                if (newInfo.type == UserTypes.Student) {
-                                    setCurrentStep(2)
-                                    setPreviousStep(11)
-                                }
-                                if (newInfo.type == UserTypes.Parent) {
-                                    setCurrentStep(10)
-                                    setCurrentStep(11)
-                                }
-                                break;
-                            case 2:
-                                if (newInfo.type == UserTypes.Student) {
-                                    setCurrentStep(10)
-                                    setPreviousStep(2)
-                                }
-                                if (newInfo.type == UserTypes.Parent) {
-                                    setCurrentStep(1)
-                                    setPreviousStep(2)
-                                    //go to resume
-                                }
-                        }
+                        ChangeStep()
                     }else {
 
                         setCurrentState(1)
@@ -688,13 +606,12 @@ const RegisterForm = () => {
             case 1:
                 // alert('drawing step 1')
                 return <NewStudentForm fullName={newInfo.studentName}></NewStudentForm>; break;
-            case 11:
-                // alert('drawing step 1')
-                return <ModulesForm fullName={newInfo.studentName}></ModulesForm>; break;
             case 2:
+                return <ModulesForm fullName={newInfo.studentName}></ModulesForm>; break;
+            case 3:
                 // alert('drawing step 2')
                 return <NewParentForm></NewParentForm>; break
-            case 10:
+            case 4:
                 // alert('drawing step 2')
                 return <ConclusionStep></ConclusionStep>; break
         }
@@ -707,40 +624,6 @@ const RegisterForm = () => {
     return (
         <Container sx={{mt: '15vh'}}>
             <Box sx={MainStyle.Container} id={'Container'}>
-                <Box sx={MainStyle.TopBox} id={'TopBox'}>
-                    {/*<AiOutlineMinus*/}
-                    {/*    onDrop={(e)=>{*/}
-                    {/*        console.log('drop')*/}
-                    {/*    }}*/}
-                    {/*    onDragStart={(event)=>{*/}
-                    {/*        console.log('start')*/}
-                    {/*    }}*/}
-                    {/*    onDrag={(event)=>{*/}
-                    {/*        let selector = document.getElementById('TopBox')*/}
-
-                    {/*    }}*/}
-                    {/*    draggable={true}*/}
-                    {/*    onsize={40}*/}
-                    {/*    draggable="true"*/}
-                    {/*    onClick={()=>{*/}
-                    {/*        console.log('hihi')*/}
-                    {/*    }}*/}
-                    {/*/>*/}
-
-                    <p
-                        onDrop={(e)=>{
-                            console.log('drop')
-                        }}
-                        onDragStart={(event)=>{
-                            dispatch({type: HideBackDrop})
-
-                        }}
-                        onDrag={(event)=>{
-                            let selector = document.getElementById('TopBox')
-
-                        }}
-                        draggable={true} >----</p>
-                </Box>
                 <Box sx={MainStyle.Content}>
                     <Box sx={MainStyle.imageConn}>
                         <Box className={'backdrop FRCC'}>
@@ -750,12 +633,10 @@ const RegisterForm = () => {
                     </Box>
                     <MultiStatesComponent state={currentState} ref={ref} working={working} sx={MainStyle.textConn}>
                         <Box  sx={MainStyle.textConn} id={'ContentBox'}>
-
                             <Box id={'formsBox'}>
                                     {
                                         DrawSteps(currentStep)
                                     }
-
                             </Box>
                             <br/>
                             { <Box id={'actionsBox'} sx={{}}>

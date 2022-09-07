@@ -16,6 +16,7 @@
     "@sanity/block-content-to-react": "^3.0.0",
     "@sanity/client": "^3.1.0",
     "@theme-ui/match-media": "^0.14.6",
+    "dotenv": "^16.0.1",
     "framer-motion": "^6.5.1",
     "html-react-parser": "^1.4.8",
     "jquery": "^3.6.0",

@@ -48,7 +48,7 @@ const styles = {
     overflow: 'hidden',
     display: 'flex',
     img: {
-      width: '100%',
+      width: '100%', height: ['160px', '200px']
     },
   },
   postContent: {

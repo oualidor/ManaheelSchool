@@ -10,6 +10,7 @@ import Chat from '../../src/assets/Images/feature/chat.svg';
 import SectionHeader from "../../components/section-header";
 import FeatureCard from "../../components/feature-card";
 import ServiceThumb from "../../src/assets/Images/service-thumb.png";
+import Banner from "../../src/assets/Images/logo.png";
 import {IoIosPlay} from "react-icons/io";
 import shapePattern from "../../src/assets/Images/shape-pattern1.png";
 import React from "react";
@@ -55,16 +56,7 @@ export default function Feature() {
           flexDirection: ['column', 'column', 'column', 'column', 'row', 'row', 'row']
         }}>
           <Box sx={styles.thumbnail}>
-            <Image src={ServiceThumb} alt="Thumbnail" />
-            <Button
-                sx={styles.videoBtn}
-
-                aria-label="Play Button"
-            >
-            <span>
-              <IoIosPlay />
-            </span>
-            </Button>
+            <Image src={Banner} alt="Thumbnail" width={'100%'}  style={{borderRadius: '40px',}}/>
 
             <Box sx={styles.shapeBox}>
               <Image src={shape3Rtl} alt="Shape" />
@@ -133,9 +125,12 @@ const styles = {
 
   },
   thumbnail: {
+
+    borderRadius: '60px',
+    height: '60vh',
     ml: ['auto', null, null, 6, 60, 85],
     order: [2, null, null, 0],
-    display: 'inline-flex',
+    display: ['none','none', 'none', 'none', 'inline-flex'],
     position: 'relative',
     '> img': {
       position: 'relative',
